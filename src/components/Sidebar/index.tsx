@@ -41,7 +41,7 @@ export function Sidebar() {
         </NavLink>
       </nav>
 
-      <Link href="/login" className="mt-auto">
+      <Link href="/login" className="relative z-10 mt-auto">
         Fazer login
         <SignIn className="text-green-100" />
       </Link>
