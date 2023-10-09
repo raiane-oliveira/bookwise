@@ -1,4 +1,8 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react"
+import { themes } from "@storybook/theming"
+
+import "../src/styles/globals.css"
+import "../src/lib/dayjs"
 
 const preview: Preview = {
   parameters: {
@@ -9,7 +13,13 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    docs: {
+      theme: themes.dark,
+    },
+    backgrounds: {
+      default: "dark",
+    },
   },
-};
+}
 
-export default preview;
+export default preview

@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   content: ["./src/**/*.{tsx,mdx}"],
@@ -22,6 +22,10 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-nunito-sans)"],
       },
+      lineHeight: {
+        base: "140%",
+        relaxed: "160%",
+      },
       spacing: {
         "4.5": "18px",
       },
@@ -34,5 +38,5 @@ const config: Config = {
     },
   },
   plugins: [],
-};
-export default config;
+}
+export default config

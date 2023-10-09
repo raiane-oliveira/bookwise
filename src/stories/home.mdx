@@ -1,0 +1,38 @@
+import { Meta } from "@storybook/blocks"
+
+<Meta title="Home" />
+
+# BookWise
+
+Aplicação full-stack para manipulação de leituras, possibilitando o usuário avaliar livros e ler outras avaliações, bem como quantos livros leu e resenhou, entre outros.
+
+## Propriedades globais entre componentes
+
+1. `as`: é uma propriedade existente em **quase** todos os componentes documentados. Permite que o desenvolvedor altere o elemento HTML padrão do componente para outro mais semântico que se encaixe no contexto.
+2. `className`: por estarmos usando TailwindCSS é altamente recomendável que você adicione classes apenas do Tailwind.
+
+Ex:
+
+```js
+return (
+  <Button as="a" className="flex gap-2 font-bold text-gray-100">
+    Link
+  </Button>
+)
+```
+
+`<Button>` se transforma em um link HTML.
+
+Podemos também transformá-lo em outros componentes:
+
+```js
+import Link from "next/react"
+
+return (
+  <Button as={Link} className="flex gap-2 font-bold text-gray-100">
+    Link
+  </Button>
+)
+```
+
+OBS: Talvez a tipagem não funcione corretamente quando você alterar o componente com `as`. Esse problema será corrigido em versões futuras.
