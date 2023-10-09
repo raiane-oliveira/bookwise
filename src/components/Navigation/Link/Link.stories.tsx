@@ -15,6 +15,7 @@ export default {
       </>
     ),
   },
+
   parameters: {
     docs: {
       description: {
@@ -24,6 +25,11 @@ export default {
     },
   },
   argTypes: {
+    children: {
+      control: {
+        type: null,
+      },
+    },
     variant: {
       options: ["primary", "secondary"],
       control: {

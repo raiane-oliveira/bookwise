@@ -19,6 +19,12 @@ export default {
     imgProps: {
       description: "É o componente <Image /> do NextJS.",
     },
+    wasRead: {
+      defaultValue: false,
+      control: {
+        type: "boolean",
+      },
+    },
   },
 
   parameters: {
@@ -32,3 +38,9 @@ export default {
 } as Meta<TrendingBookProps>
 
 export const Primary: StoryObj<TrendingBookProps> = {}
+
+export const Read: StoryObj<TrendingBookProps> = {
+  args: {
+    wasRead: true,
+  },
+}

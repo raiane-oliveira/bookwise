@@ -9,6 +9,7 @@ export interface TrendingBookProps extends BoxProps {
   title: string
   author: string
   stars: number
+  wasRead?: boolean
 }
 
 export function TrendingBook({
@@ -16,10 +17,11 @@ export function TrendingBook({
   title,
   author,
   stars,
+  wasRead = false,
   ...props
 }: TrendingBookProps) {
   return (
-    <Box hasHover variant="secondary" size="sm" {...props}>
+    <Box className="relative" hasHover variant="secondary" size="sm" {...props}>
       <Image
         width={64}
         height={94}
@@ -39,6 +41,12 @@ export function TrendingBook({
         <Text className="text-gray-400">{author}</Text>
         <Stars stars={stars} className="mt-auto" />
       </div>
+
+      {wasRead && (
+        <div className="absolute -right-0.5 -top-0.5 rounded-bl rounded-tr bg-green-300 px-3 py-1 font-sans text-xs/snug text-green-100">
+          LIDO
+        </div>
+      )}
     </Box>
   )
 }

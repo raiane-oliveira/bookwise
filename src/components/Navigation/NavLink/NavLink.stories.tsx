@@ -11,6 +11,15 @@ export default {
     icon: ChartLineUp,
     children: "Início",
   },
+
+  argTypes: {
+    icon: {
+      control: {
+        type: null,
+      },
+    },
+  },
+
   parameters: {
     docs: {
       description: {

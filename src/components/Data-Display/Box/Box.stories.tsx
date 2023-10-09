@@ -16,6 +16,11 @@ export default {
   },
 
   argTypes: {
+    children: {
+      control: {
+        type: null,
+      },
+    },
     variant: {
       defaultValue: "primary",
       control: {
