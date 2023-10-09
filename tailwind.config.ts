@@ -38,6 +38,9 @@ const config: Config = {
         "gradient-vertical":
           "linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)",
       },
+      gridTemplateColumns: {
+        home: "minmax(20.25rem, 1fr) minmax(15rem, 20.25rem)",
+      },
     },
   },
   plugins: [],

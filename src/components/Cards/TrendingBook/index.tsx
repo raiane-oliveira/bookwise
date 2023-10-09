@@ -4,7 +4,7 @@ import { Text } from "../../Typography/Text"
 import { Stars } from "../../Data-Display/Stars"
 import { twMerge } from "tailwind-merge"
 
-export interface TrendingBookProps extends BoxProps {
+export interface TrendingBookProps extends Omit<BoxProps, "children"> {
   imgProps: ImageProps
   title: string
   author: string
@@ -30,11 +30,11 @@ export function TrendingBook({
         className={twMerge(`rounded`, imgProps.className)}
         alt={imgProps.alt}
       />
-      <div className="flex flex-col pt-0.5">
+      <div className="flex h-full flex-col pt-0.5">
         <Text
           size="md"
           as="strong"
-          className="leading-base font-bold text-gray-100"
+          className="font-bold leading-base text-gray-100"
         >
           {title}
         </Text>
