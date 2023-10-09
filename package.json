@@ -21,6 +21,7 @@
     "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.1",
     "@rocketseat/eslint-config": "^2.1.0",
     "@storybook/addon-a11y": "^7.4.6",
     "@storybook/addon-essentials": "^7.4.6",

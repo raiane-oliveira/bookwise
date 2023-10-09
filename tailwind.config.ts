@@ -29,6 +29,9 @@ const config: Config = {
       spacing: {
         "4.5": "18px",
       },
+      maxWidth: {
+        app: "1440px",
+      },
       backgroundImage: {
         "gradient-horizontal":
           "linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%)",
