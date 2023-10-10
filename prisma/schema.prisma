@@ -21,18 +21,29 @@ model User {
   @@map("users")
 }
 
+model Book {
+  id           String         @id @default(uuid())
+  name         String
+  author       String
+  image_url    String?
+  category     String?
+  year         Int?
+  rating       Int?
+  ReviewedBook ReviewedBook[]
+
+  @@map("books")
+}
+
 model ReviewedBook {
   id         String   @id @default(uuid())
-  name       String
-  author     String
   review     String
   stars      Int
-  category   String?
-  image_url  String?
   created_at DateTime @default(now())
 
   user    User   @relation(fields: [user_id], references: [id])
+  book    Book   @relation(fields: [book_id], references: [id])
   user_id String
+  book_id String
 
   @@map("reviewed_books")
 }

@@ -23,6 +23,7 @@ export default async function handler(
     },
     include: {
       user: true,
+      book: true,
     },
   })
 
@@ -34,9 +35,12 @@ export default async function handler(
     where: {
       user_id: session?.user.id,
     },
+    include: {
+      book: true,
+    },
   })
 
-  return res.json({
+  return res.status(200).json({
     recentReviewedBooks,
     lastReviewedUserBook: lastReviewedUserBook[lastReviewedUserBook.length - 1],
   })

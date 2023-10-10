@@ -11,20 +11,26 @@ import { Avatar } from "@/components/Data-Display/Avatar"
 import { Stars } from "@/components/Data-Display/Stars"
 import Image from "next/image"
 import { useSession } from "next-auth/react"
-import { api, booksApi } from "@/lib/axios"
+import { api } from "@/lib/axios"
 import { useQuery } from "@tanstack/react-query"
 import { UserReviewedBook } from "@/components/Cards/UserReviewedBook"
 import { formatToRelativeDate } from "@/utils/format-to-relative-date"
 
-interface ReviewedBook {
+interface Book {
   id: string
   name: string
   author: string
+  image_url?: string
+  category?: string
+  rating?: number
+}
+
+interface ReviewedBook {
+  id: string
   review: string
   stars: number
-  category: string
   created_at: Date
-  image_url?: string
+  book: Book
   user: {
     id: string
     name: string
@@ -41,20 +47,30 @@ interface ReviewedBooks {
 
 const Home: NextPageWithLayout = () => {
   const session = useSession()
-  const { data, isLoading } = useQuery<ReviewedBooks>(
-    ["reviewed-books"],
-    async () => {
+  const { data: recentBooksData, isLoading: isLoadingRecentBooks } =
+    useQuery<ReviewedBooks>(["reviewed-books"], async () => {
       const response = await api.get("/reviewed-books")
+      return response.data
+    })
+
+  const { data: books, isLoading: isLoadingBooks } = useQuery<Book[]>(
+    ["all-books"],
+    async () => {
+      const response = await api.get("/books?limit=4")
       return response.data
     },
   )
 
-  if (isLoading) {
+  if (isLoadingRecentBooks || isLoadingBooks) {
     return <h1>Loading...</h1>
   }
 
-  const lastReviewedUserBook = data && data.lastReviewedUserBook
-  const recentReviewedBooks = data && data.recentReviewedBooks
+  const lastReviewedUserBook = recentBooksData?.lastReviewedUserBook
+    ? recentBooksData.lastReviewedUserBook
+    : null
+  const recentReviewedBooks = recentBooksData?.recentReviewedBooks.length
+    ? recentBooksData.recentReviewedBooks
+    : null
 
   return (
     <main className="mt-14 w-full max-w-app space-y-10">
@@ -65,29 +81,33 @@ const Home: NextPageWithLayout = () => {
 
       <div className="grid w-full gap-16 pr-24 xl:grid-cols-home">
         <div className="flex flex-col gap-3">
-          <div className="mb-1 flex items-center justify-between">
-            <Text className=" text-gray-100">Sua última leitura avaliada</Text>
-            <Link href="/" size="sm" variant="secondary">
-              Ver todas <CaretRight />
-            </Link>
-          </div>
-
           {session.status === "authenticated" && lastReviewedUserBook && (
-            <UserReviewedBook
-              imgProps={{
-                src: "https://m.media-amazon.com/images/I/618iHJVMh4L.jpg",
-                alt: "",
-              }}
-              book={{
-                title: lastReviewedUserBook.name,
-                author: lastReviewedUserBook.author,
-                stars: lastReviewedUserBook.stars,
-                opinion: lastReviewedUserBook.review,
-                createdAt: lastReviewedUserBook.created_at,
-              }}
-              className="mb-7"
-              as="button"
-            />
+            <>
+              <div className="mb-1 flex items-center justify-between">
+                <Text className=" text-gray-100">
+                  Sua última leitura avaliada
+                </Text>
+                <Link href="/" size="sm" variant="secondary">
+                  Ver todas <CaretRight />
+                </Link>
+              </div>
+
+              <UserReviewedBook
+                imgProps={{
+                  src: "https://m.media-amazon.com/images/I/618iHJVMh4L.jpg",
+                  alt: "",
+                }}
+                book={{
+                  title: lastReviewedUserBook.book.name,
+                  author: lastReviewedUserBook.book.author,
+                  stars: lastReviewedUserBook.stars,
+                  opinion: lastReviewedUserBook.review,
+                  createdAt: lastReviewedUserBook.created_at,
+                }}
+                className="mb-7"
+                as="button"
+              />
+            </>
           )}
 
           {!recentReviewedBooks ? (
@@ -99,7 +119,7 @@ const Home: NextPageWithLayout = () => {
               <Text className="mb-1 text-gray-100">
                 Avaliações mais recentes
               </Text>
-              {recentReviewedBooks.map((book) => (
+              {recentReviewedBooks?.map((book) => (
                 <Box
                   key={book.id}
                   className="flex-col gap-8 py-6"
@@ -123,7 +143,7 @@ const Home: NextPageWithLayout = () => {
                   <div className="flex gap-5">
                     <Image
                       src={
-                        book.image_url ??
+                        book.book.image_url ??
                         "https://bookscouter.com/images/main/book-cover-unavailable.svg"
                       }
                       alt=""
@@ -139,9 +159,11 @@ const Home: NextPageWithLayout = () => {
                           size="md"
                           className="font-bold leading-base text-gray-100"
                         >
-                          {book.name}
+                          {book.book.name}
                         </Text>
-                        <Text className="text-gray-400">{book.author}</Text>
+                        <Text className="text-gray-400">
+                          {book.book.author}
+                        </Text>
                       </section>
 
                       <Text className="line-clamp-4">
@@ -171,17 +193,20 @@ const Home: NextPageWithLayout = () => {
             </Link>
           </div>
 
-          <TrendingBook
-            title={"title"}
-            author={"authors"}
-            stars={4}
-            imgProps={{
-              src: "https://m.media-amazon.com/images/I/519UnakaarL.jpg",
-              alt: "",
-            }}
-            as="button"
-            className="text-left"
-          />
+          {books?.map((book) => (
+            <TrendingBook
+              key={book.id}
+              title={book.name}
+              author={book.author}
+              stars={book.rating || 0}
+              imgProps={{
+                src: book.image_url || "",
+                alt: "",
+              }}
+              as="button"
+              className="text-left"
+            />
+          ))}
         </div>
       </div>
     </main>

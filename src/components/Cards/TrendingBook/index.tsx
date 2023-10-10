@@ -38,7 +38,8 @@ export function TrendingBook({
         <Text
           size="md"
           as="strong"
-          className="font-bold leading-base text-gray-100"
+          className="line-clamp-2 font-bold leading-base text-gray-100"
+          title={title}
         >
           {title}
         </Text>
