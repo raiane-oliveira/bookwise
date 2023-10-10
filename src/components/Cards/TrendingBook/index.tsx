@@ -30,7 +30,11 @@ export function TrendingBook({
         className={twMerge(`rounded`, imgProps.className)}
         alt={imgProps.alt}
       />
-      <div className="flex h-full flex-col pt-0.5">
+      <div
+        className={`flex flex-col pt-0.5 ${
+          props.as && props.as !== "div" && "h-full"
+        }`}
+      >
         <Text
           size="md"
           as="strong"

@@ -19,7 +19,7 @@ const Home: NextPageWithLayout = () => {
         Início
       </Heading>
 
-      <div className="grid-cols-home grid w-full gap-16 pr-24">
+      <div className="grid w-full gap-16 pr-24 xl:grid-cols-home">
         <div className="flex flex-col gap-3">
           <Text className="mb-1 text-gray-100">Avaliações mais recentes</Text>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
@@ -60,7 +60,7 @@ const Home: NextPageWithLayout = () => {
                     <Text className="text-gray-400">J.R.R. Tolkien</Text>
                   </section>
 
-                  <Text>
+                  <Text className="line-clamp-4">
                     Semper et sapien proin vitae nisi. Feugiat neque integer
                     donec et aenean posuere amet ultrices. Cras fermentum id
                     pulvinar varius leo a in. Amet libero pharetra nunc
