@@ -4,8 +4,9 @@ import { Text } from "../../Typography/Text"
 import { Stars } from "../../Data-Display/Stars"
 import { twMerge } from "tailwind-merge"
 import dayjs from "dayjs"
+import { formatToRelativeDate } from "../../../utils/format-to-relative-date"
 
-export interface UserReviewedBookProps extends BoxProps {
+export interface UserReviewedBookProps extends Omit<BoxProps, "children"> {
   imgProps: ImageProps
   book: {
     title: string
@@ -21,7 +22,7 @@ export function UserReviewedBook({
   book,
   ...props
 }: UserReviewedBookProps) {
-  const createdAt = dayjs(book.createdAt).fromNow()
+  const createdAt = formatToRelativeDate(book.createdAt)
 
   return (
     <Box hasHover {...props}>
@@ -33,28 +34,23 @@ export function UserReviewedBook({
         className={twMerge(`rounded`, imgProps.className)}
         alt={imgProps.alt}
       />
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-1 flex-col gap-3">
         <div className="flex items-center justify-between">
-          <Text>
-            {createdAt
-              .substring(0, 1)
-              .toUpperCase()
-              .concat(createdAt.substring(1))}
-          </Text>
+          <Text>{createdAt}</Text>
           <Stars stars={book.stars} className="mt-auto" />
         </div>
 
         <div>
           <Text
             as="strong"
-            className="leading-base text-base font-bold text-gray-100"
+            className="text-base font-bold leading-base text-gray-100"
           >
             {book.title}
           </Text>
           <Text className="text-gray-400">{book.author}</Text>
         </div>
 
-        <Text className="mt-auto">{book.opinion}</Text>
+        <Text className="mt-6">{book.opinion}</Text>
       </div>
     </Box>
   )

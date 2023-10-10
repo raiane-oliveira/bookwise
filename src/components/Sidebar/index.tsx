@@ -1,10 +1,18 @@
 import { Logo } from "@/assets"
 import Image from "next/image"
 import { NavLink } from "../Navigation/NavLink"
-import { Binoculars, ChartLineUp, SignIn } from "phosphor-react"
+import { Binoculars, ChartLineUp, SignIn, SignOut, User } from "phosphor-react"
 import { Link } from "../Navigation/Link"
+import { signOut, useSession } from "next-auth/react"
+import { Avatar } from "../Data-Display/Avatar"
 
 export function Sidebar() {
+  const session = useSession()
+
+  async function handleSignOut() {
+    await signOut()
+  }
+
   return (
     <div className="relative flex max-h-[61.75rem] w-full max-w-[14.5rem] flex-col items-center gap-16 overflow-hidden rounded-xl bg-gray-800 py-12">
       <div
@@ -39,12 +47,30 @@ export function Sidebar() {
         <NavLink href="/explore" icon={Binoculars}>
           Explorar
         </NavLink>
+
+        {session.status === "authenticated" && (
+          <NavLink href="/profile" icon={User}>
+            Perfil
+          </NavLink>
+        )}
       </nav>
 
-      <Link href="/login" className="relative z-10 mt-auto">
-        Fazer login
-        <SignIn className="text-green-100" />
-      </Link>
+      {session.status === "unauthenticated" ? (
+        <Link href="/login" className="relative z-10 mt-auto">
+          Fazer login
+          <SignIn className="text-green-100" />
+        </Link>
+      ) : (
+        <Link
+          as="button"
+          onClick={handleSignOut}
+          className="relative z-10 mt-auto"
+        >
+          <Avatar src={session.data?.user.avatar_url} alt="" size="sm" />
+          {session.data?.user.name}
+          <SignOut className="text-[#F75A68]" />
+        </Link>
+      )}
     </div>
   )
 }
