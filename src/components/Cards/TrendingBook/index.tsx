@@ -27,7 +27,10 @@ export function TrendingBook({
         height={94}
         quality={100}
         {...imgProps}
-        className={twMerge(`rounded`, imgProps.className)}
+        className={twMerge(
+          `h-[5.875rem] w-16 rounded object-cover`,
+          imgProps.className,
+        )}
         alt={imgProps.alt}
       />
       <div

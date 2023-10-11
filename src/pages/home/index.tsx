@@ -15,29 +15,15 @@ import { api } from "@/lib/axios"
 import { useQuery } from "@tanstack/react-query"
 import { UserReviewedBook } from "@/components/Cards/UserReviewedBook"
 import { formatToRelativeDate } from "@/utils/format-to-relative-date"
+import {
+  Book,
+  ReviewedBook as ReviewedBookType,
+  User,
+} from "@/@types/interfaces"
 
-interface Book {
-  id: string
-  name: string
-  author: string
-  image_url?: string
-  category?: string
-  rating?: number
-}
-
-interface ReviewedBook {
-  id: string
-  review: string
-  stars: number
-  created_at: Date
+interface ReviewedBook extends ReviewedBookType {
   book: Book
-  user: {
-    id: string
-    name: string
-    email: string
-    avatar_url: string
-    created_at: Date
-  }
+  user: User
 }
 
 interface ReviewedBooks {
@@ -47,6 +33,7 @@ interface ReviewedBooks {
 
 const Home: NextPageWithLayout = () => {
   const session = useSession()
+
   const { data: recentBooksData, isLoading: isLoadingRecentBooks } =
     useQuery<ReviewedBooks>(["reviewed-books"], async () => {
       const response = await api.get("/reviewed-books")
@@ -60,10 +47,6 @@ const Home: NextPageWithLayout = () => {
       return response.data
     },
   )
-
-  if (isLoadingRecentBooks || isLoadingBooks) {
-    return <h1>Loading...</h1>
-  }
 
   const lastReviewedUserBook = recentBooksData?.lastReviewedUserBook
     ? recentBooksData.lastReviewedUserBook
@@ -94,7 +77,9 @@ const Home: NextPageWithLayout = () => {
 
               <UserReviewedBook
                 imgProps={{
-                  src: "https://m.media-amazon.com/images/I/618iHJVMh4L.jpg",
+                  src:
+                    lastReviewedUserBook.book.image_url ??
+                    "https://bookscouter.com/images/main/book-cover-unavailable.svg",
                   alt: "",
                 }}
                 book={{
@@ -104,17 +89,26 @@ const Home: NextPageWithLayout = () => {
                   opinion: lastReviewedUserBook.review,
                   createdAt: lastReviewedUserBook.created_at,
                 }}
-                className="mb-7"
+                className="mb-7 [&_>_div]:h-full"
                 as="button"
               />
             </>
           )}
 
-          {!recentReviewedBooks ? (
+          {isLoadingRecentBooks &&
+            Array.from(Array(6).keys()).map((n) => (
+              <Box key={n} className="h-56 w-full max-w-lg animate-pulse">
+                {null}
+              </Box>
+            ))}
+
+          {!recentReviewedBooks && !isLoadingRecentBooks && (
             <Text className="text-gray-100">
               Não temos avaliações recentes no momento.
             </Text>
-          ) : (
+          )}
+
+          {recentReviewedBooks && (
             <>
               <Text className="mb-1 text-gray-100">
                 Avaliações mais recentes
@@ -188,7 +182,7 @@ const Home: NextPageWithLayout = () => {
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <Text className="mb-1 text-gray-100">Livros populares</Text>
-            <Link href="/trending-books" size="sm" variant="secondary">
+            <Link href="/explore" size="sm" variant="secondary">
               Ver todos <CaretRight />
             </Link>
           </div>

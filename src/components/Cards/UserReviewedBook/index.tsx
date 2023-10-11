@@ -50,7 +50,7 @@ export function UserReviewedBook({
           <Text className="text-gray-400">{book.author}</Text>
         </div>
 
-        <Text className="mt-6">{book.opinion}</Text>
+        <Text className="mt-auto line-clamp-2">{book.opinion}</Text>
       </div>
     </Box>
   )

@@ -17,7 +17,7 @@ export function NavLink({
   ...props
 }: NavLinkProps) {
   const pathName = usePathname()
-  const isActive = pathName ? pathName.startsWith(String(props.href)) : false
+  const isActive = pathName ? pathName === props.href : false
 
   return (
     <Component

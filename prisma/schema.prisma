@@ -22,14 +22,19 @@ model User {
 }
 
 model Book {
-  id           String         @id @default(uuid())
-  name         String
-  author       String
-  image_url    String?
-  category     String?
-  year         Int?
-  rating       Int?
-  ReviewedBook ReviewedBook[]
+  id         String   @id @default(uuid())
+  name       String
+  author     String
+  image_url  String?
+  year       Int?
+  rating     Int?
+  pages      Int
+  created_at DateTime @default(now())
+
+  category    Category? @relation(fields: [category_id], references: [id])
+  category_id String?
+
+  reviewed_books ReviewedBook[]
 
   @@map("books")
 }
@@ -46,6 +51,16 @@ model ReviewedBook {
   book_id String
 
   @@map("reviewed_books")
+}
+
+model Category {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  created_at DateTime @default(now())
+
+  Book Book[]
+
+  @@map("categories")
 }
 
 model Account {

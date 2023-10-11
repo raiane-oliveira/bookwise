@@ -6,18 +6,16 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const limitResults = String(req.query.limit)
-  const books = limitResults
-    ? await prisma.book.findMany({
-        take: Number(limitResults),
-        orderBy: {
-          rating: "desc",
-        },
-      })
-    : await prisma.book.findMany({
-        orderBy: {
-          rating: "desc",
-        },
-      })
+  const books = await prisma.book.findMany({
+    take: Number(limitResults) || undefined,
+    orderBy: {
+      name: "asc",
+    },
+    include: {
+      category: true,
+      reviewed_books: true,
+    },
+  })
 
   if (!books) {
     return res.json({

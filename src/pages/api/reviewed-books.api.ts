@@ -11,9 +11,6 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const session = await getServerSession(req, res, authOptions)
-  if (!session) {
-    return res.status(400).end()
-  }
 
   const prismaRecentReviewedBooks = await prisma.reviewedBook.findMany({
     where: {
