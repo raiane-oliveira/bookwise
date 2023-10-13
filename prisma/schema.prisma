@@ -27,7 +27,7 @@ model Book {
   author     String
   image_url  String?
   year       Int?
-  rating     Int?
+  rating     Float    @default(0)
   pages      Int
   created_at DateTime @default(now())
 
@@ -42,7 +42,7 @@ model Book {
 model ReviewedBook {
   id         String   @id @default(uuid())
   review     String
-  stars      Int
+  stars      Float
   created_at DateTime @default(now())
 
   user    User   @relation(fields: [user_id], references: [id])

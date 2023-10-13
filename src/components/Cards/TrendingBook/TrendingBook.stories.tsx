@@ -6,19 +6,19 @@ export default {
   component: TrendingBook,
 
   args: {
-    title: "A revolução dos bichos",
-    imgProps: {
-      alt: "",
-      src: "https://m.media-amazon.com/images/I/618iHJVMh4L.jpg",
+    book: {
+      name: "A revolução dos bichos",
+      author: "George Orwell",
+      created_at: new Date(),
+      id: "1",
+      pages: 152,
+      category: { id: "2", name: "Fantasia", created_at: new Date() },
+      image_url: "https://m.media-amazon.com/images/I/618iHJVMh4L.jpg",
+      reviewed_books: [],
     },
-    author: "George Orwell",
-    stars: 4,
   },
 
   argTypes: {
-    imgProps: {
-      description: "É o componente <Image /> do NextJS.",
-    },
     wasRead: {
       defaultValue: false,
       control: {

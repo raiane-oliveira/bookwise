@@ -16,11 +16,17 @@ export default {
       stars: 5,
       createdAt: new Date(),
       opinion:
-        "Integer at tincidunt sed mi. Venenatis nunc justo porta viverra lacus scelerisque ut orci ultricies. Massa ultrices lacus non lectus pellentesque cras posuere neque. Nunc nisl curabitur et non. Tellus senectus elit porta lorem.",
+        "Integer at tincidunt sed mi. Venenatis nunc justo porta viverra lacus scelerisque ut orci ultricies. Massa ultrices lacus non lectus pellentesque cras posuere neque. Nunc nisl curabitur et non. Tellus senectus elit porta lorem. Integer at tincidunt sed mi. Venenatis nunc justo porta viverra lacus scelerisque ut orci ultricies. Massa ultrices lacus non lectus pellentesque cras posuere neque. Nunc nisl curabitur et non. Tellus senectus elit porta lorem. Integer at tincidunt sed mi. Venenatis nunc justo porta viverra lacus scelerisque ut orci ultricies. Massa ultrices lacus non lectus pellentesque cras posuere neque. Nunc nisl curabitur et non. Tellus senectus elit porta lorem.",
     },
   },
 
   argTypes: {
+    variant: {
+      defaultValue: "primary",
+      control: {
+        type: "inline-radio",
+      },
+    },
     imgProps: {
       description: "É o componente <Image /> do NextJS.",
     },
@@ -37,3 +43,9 @@ export default {
 } as Meta<UserReviewedBookProps>
 
 export const Primary: StoryObj<UserReviewedBookProps> = {}
+
+export const Secondary: StoryObj<UserReviewedBookProps> = {
+  args: {
+    variant: "secondary",
+  },
+}

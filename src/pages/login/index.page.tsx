@@ -7,11 +7,11 @@ import Link from "next/link"
 import { RocketLaunch } from "phosphor-react"
 import { Nunito_Sans as NunitoSans } from "next/font/google"
 
-import { Icon } from "@iconify/react"
-import { LiteralUnion, signIn, useSession } from "next-auth/react"
-import { BuiltInProviderType } from "next-auth/providers/index"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
+import { Google } from "@/components/SignIn/Google"
+import { GitHub } from "@/components/SignIn/GitHub"
 
 const nunitoSans = NunitoSans({
   subsets: ["latin"],
@@ -32,12 +32,6 @@ export default function Login() {
       navigateToHomePage()
     }
   }, [session.status, router])
-
-  async function handleSignInWithProvider(
-    provider: LiteralUnion<BuiltInProviderType>,
-  ) {
-    await signIn(provider)
-  }
 
   return (
     <div className="bg-gray-800">
@@ -80,31 +74,8 @@ export default function Login() {
           </section>
 
           <div className="flex flex-col gap-4">
-            <Box
-              as="button"
-              hasHover
-              className="gap-5"
-              onClick={() => handleSignInWithProvider("google")}
-            >
-              <Icon icon="flat-color-icons:google" className="h-8 w-8" />
-              <Text className="text-lg/relaxed font-bold text-gray-200">
-                Entrar com Google
-              </Text>
-            </Box>
-            <Box
-              as="button"
-              hasHover
-              className="gap-5"
-              onClick={() => handleSignInWithProvider("github")}
-            >
-              <Icon
-                icon="akar-icons:github-fill"
-                className="h-8 w-8 text-white"
-              />
-              <Text className="text-lg/relaxed font-bold text-gray-200">
-                Entrar com GitHub
-              </Text>
-            </Box>
+            <Google />
+            <GitHub />
             <Box as={Link} href="/" hasHover className="gap-5">
               <RocketLaunch className="h-8 w-8 text-purple-100" />
               <Text className="text-lg/relaxed font-bold text-gray-200">

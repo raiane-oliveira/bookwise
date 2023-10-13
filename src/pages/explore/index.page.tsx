@@ -55,7 +55,7 @@ const Explore: NextPageWithLayout = () => {
           Array.from(Array(8).keys()).map((n) => (
             <div
               key={n}
-              className="h-7 w-24 animate-pulse rounded-full bg-purple-100"
+              className="h-7 w-24 animate-pulse rounded-full bg-purple-200"
               aria-hidden
             />
           ))}
@@ -101,10 +101,7 @@ const Explore: NextPageWithLayout = () => {
           return (
             <TrendingBook
               key={book.id}
-              title={book.name}
-              author={book.author}
-              stars={Number(book.rating)}
-              imgProps={{ src: String(book.image_url), alt: "" }}
+              book={book}
               as="button"
               wasRead={reviewedBook?.book_id === book.id}
             />

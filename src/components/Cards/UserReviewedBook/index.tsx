@@ -15,14 +15,46 @@ export interface UserReviewedBookProps extends Omit<BoxProps, "children"> {
     createdAt: Date
     opinion: string
   }
+  variant?: "primary" | "secondary"
 }
 
 export function UserReviewedBook({
   imgProps,
   book,
+  variant = "primary",
   ...props
 }: UserReviewedBookProps) {
   const createdAt = formatToRelativeDate(book.createdAt)
+
+  if (variant === "secondary") {
+    return (
+      <Box variant="secondary" className="flex-col p-6" {...props}>
+        <div className="flex gap-6">
+          <Image
+            width={98}
+            height={134}
+            quality={100}
+            {...imgProps}
+            className={twMerge(
+              `h-[8.375rem] w-[6.125rem] rounded object-cover`,
+              imgProps.className,
+            )}
+            alt={imgProps.alt}
+          />
+
+          <div className="flex flex-col gap-0.5 py-1">
+            <Text as="strong" className="text-lg/base font-bold text-gray-100">
+              {book.title}
+            </Text>
+            <Text className="text-gray-400">{book.author}</Text>
+            <Stars stars={book.stars} className="mt-auto" />
+          </div>
+        </div>
+
+        <Text>{book.opinion}</Text>
+      </Box>
+    )
+  }
 
   return (
     <Box hasHover {...props}>
@@ -43,7 +75,8 @@ export function UserReviewedBook({
         <div>
           <Text
             as="strong"
-            className="text-base font-bold leading-base text-gray-100"
+            size="md"
+            className="font-bold leading-base text-gray-100"
           >
             {book.title}
           </Text>

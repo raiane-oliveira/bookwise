@@ -21,6 +21,10 @@ import {
   User,
 } from "@/@types/interfaces"
 
+interface BookWithReviewedBooks extends Book {
+  reviewed_books: ReviewedBookType[]
+}
+
 interface ReviewedBook extends ReviewedBookType {
   book: Book
   user: User
@@ -40,13 +44,12 @@ const Home: NextPageWithLayout = () => {
       return response.data
     })
 
-  const { data: books, isLoading: isLoadingBooks } = useQuery<Book[]>(
-    ["all-books"],
-    async () => {
-      const response = await api.get("/books?limit=4")
-      return response.data
-    },
-  )
+  const { data: books, isLoading: isLoadingBooks } = useQuery<
+    BookWithReviewedBooks[]
+  >(["all-books"], async () => {
+    const response = await api.get("/books?limit=4")
+    return response.data
+  })
 
   const lastReviewedUserBook = recentBooksData?.lastReviewedUserBook
     ? recentBooksData.lastReviewedUserBook
@@ -190,13 +193,7 @@ const Home: NextPageWithLayout = () => {
           {books?.map((book) => (
             <TrendingBook
               key={book.id}
-              title={book.name}
-              author={book.author}
-              stars={book.rating || 0}
-              imgProps={{
-                src: book.image_url || "",
-                alt: "",
-              }}
+              book={book}
               as="button"
               className="text-left"
             />

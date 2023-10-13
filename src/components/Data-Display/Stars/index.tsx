@@ -26,6 +26,7 @@ export function Stars({
           key={star}
           weight={star + 1 <= stars ? "fill" : "regular"}
           className="h-4 w-4 text-purple-100"
+          data-value={star}
         />
       ))}
     </Component>

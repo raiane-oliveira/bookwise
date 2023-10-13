@@ -20,7 +20,7 @@ const config: Config = {
         "gray-800": "#0E1116",
       },
       fontFamily: {
-        sans: ["var(--font-nunito-sans)"],
+        sans: ["var(--font-nunito-sans, sans-serif)"],
       },
       lineHeight: {
         base: "140%",
