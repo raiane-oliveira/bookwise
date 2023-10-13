@@ -157,6 +157,14 @@ export function CreateReviewForm({
           />
         </div>
 
+        {errors.review && (
+          <Text className="text-red-500">{errors.review?.message}</Text>
+        )}
+
+        {errors.stars && (
+          <Text className="text-red-500">{errors.stars?.message}</Text>
+        )}
+
         <div className="ml-auto flex gap-2">
           <Button onClick={onCancelUserRating}>
             <X className="text-purple-100" />

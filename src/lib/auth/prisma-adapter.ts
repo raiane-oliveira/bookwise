@@ -8,7 +8,7 @@ export function PrismaAdapter(): Adapter {
         data: {
           name: String(user.name),
           email: String(user.email),
-          avatar_url: user.image,
+          avatar_url: user.avatar_url,
         },
       })
 

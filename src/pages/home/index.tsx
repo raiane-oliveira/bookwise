@@ -182,23 +182,25 @@ const Home: NextPageWithLayout = () => {
           )}
         </div>
 
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <Text className="mb-1 text-gray-100">Livros populares</Text>
-            <Link href="/explore" size="sm" variant="secondary">
-              Ver todos <CaretRight />
-            </Link>
-          </div>
+        {books?.length && (
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between">
+              <Text className="mb-1 text-gray-100">Livros populares</Text>
+              <Link href="/explore" size="sm" variant="secondary">
+                Ver todos <CaretRight />
+              </Link>
+            </div>
 
-          {books?.map((book) => (
-            <TrendingBook
-              key={book.id}
-              book={book}
-              as="button"
-              className="text-left"
-            />
-          ))}
-        </div>
+            {books.map((book) => (
+              <TrendingBook
+                key={book.id}
+                book={book}
+                as="button"
+                className="text-left"
+              />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   )

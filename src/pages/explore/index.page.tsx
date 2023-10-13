@@ -10,6 +10,7 @@ import { api } from "@/lib/axios"
 import { Tag } from "@/components/Actions/Tag"
 import { TrendingBook } from "@/components/Cards/TrendingBook"
 import { useSession } from "next-auth/react"
+import { Text } from "@/components/Typography/Text"
 
 interface Book extends BookType {
   reviewed_books: ReviewedBook[]
@@ -38,7 +39,7 @@ const Explore: NextPageWithLayout = () => {
   )
 
   return (
-    <main className="mt-14 w-full max-w-app pr-16">
+    <main className="mt-12 w-full max-w-app pr-16">
       <div className="flex justify-between">
         <Heading>
           <Binoculars />
@@ -60,7 +61,13 @@ const Explore: NextPageWithLayout = () => {
             />
           ))}
 
-        {categories && (
+        {!isLoadingBooks && !books?.length && (
+          <Text size="md" className="text-gray-100">
+            Não temos nenhum livro adicionado no momento.
+          </Text>
+        )}
+
+        {categories?.length && (
           <Tag
             defaultPressed
             pressed={!categorySelected}
