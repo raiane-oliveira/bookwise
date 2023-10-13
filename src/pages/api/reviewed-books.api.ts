@@ -24,7 +24,11 @@ export default async function handler(
     },
     include: {
       user: true,
-      book: true,
+      book: {
+        include: {
+          authors: true,
+        },
+      },
     },
   })
 
@@ -37,7 +41,11 @@ export default async function handler(
       user_id: session?.user.id,
     },
     include: {
-      book: true,
+      book: {
+        include: {
+          authors: true,
+        },
+      },
     },
   })
 

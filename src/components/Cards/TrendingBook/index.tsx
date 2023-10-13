@@ -51,7 +51,9 @@ export function TrendingBook({
             >
               {book.name}
             </Text>
-            <Text className="text-gray-400">{book.author}</Text>
+            <Text className="text-gray-400">
+              {book.authors.map((author) => author.name).join(", ")}
+            </Text>
             <Stars stars={book.rating || 0} className="mt-auto" />
           </div>
 

@@ -1,14 +1,13 @@
 export interface Book {
   id: string
   name: string
-  author: string
   image_url?: string
   rating?: number
-  category?: Category
-  category_id?: string
   year?: number
   pages: number
   created_at: Date
+  categories: Category[]
+  authors: Author[]
 }
 
 export interface User {
@@ -32,4 +31,12 @@ export interface Category {
   id: String
   name: String
   created_at: Date
+}
+
+export interface Author {
+  id: string
+  name: string
+  avatar_url?: string
+  created_at: Date
+  books: Book[]
 }

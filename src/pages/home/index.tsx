@@ -87,7 +87,9 @@ const Home: NextPageWithLayout = () => {
                 }}
                 book={{
                   title: lastReviewedUserBook.book.name,
-                  author: lastReviewedUserBook.book.author,
+                  authors: lastReviewedUserBook.book.authors.map(
+                    (author) => author.name,
+                  ),
                   stars: lastReviewedUserBook.stars,
                   opinion: lastReviewedUserBook.review,
                   createdAt: lastReviewedUserBook.created_at,
@@ -159,7 +161,9 @@ const Home: NextPageWithLayout = () => {
                           {book.book.name}
                         </Text>
                         <Text className="text-gray-400">
-                          {book.book.author}
+                          {book.book.authors
+                            .map((author) => author.name)
+                            .join(", ")}
                         </Text>
                       </section>
 

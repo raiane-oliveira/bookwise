@@ -3,14 +3,13 @@ import { Box, BoxProps } from "../../Data-Display/Box"
 import { Text } from "../../Typography/Text"
 import { Stars } from "../../Data-Display/Stars"
 import { twMerge } from "tailwind-merge"
-import dayjs from "dayjs"
 import { formatToRelativeDate } from "../../../utils/format-to-relative-date"
 
 export interface UserReviewedBookProps extends Omit<BoxProps, "children"> {
   imgProps: ImageProps
   book: {
     title: string
-    author: string
+    authors: string[]
     stars: number
     createdAt: Date
     opinion: string
@@ -46,7 +45,7 @@ export function UserReviewedBook({
             <Text as="strong" className="text-lg/base font-bold text-gray-100">
               {book.title}
             </Text>
-            <Text className="text-gray-400">{book.author}</Text>
+            <Text className="text-gray-400">{book.authors.join(", ")}</Text>
             <Stars stars={book.stars} className="mt-auto" />
           </div>
         </div>
@@ -80,7 +79,7 @@ export function UserReviewedBook({
           >
             {book.title}
           </Text>
-          <Text className="text-gray-400">{book.author}</Text>
+          <Text className="text-gray-400">{book.authors.join(", ")}</Text>
         </div>
 
         <Text className="mt-auto line-clamp-2">{book.opinion}</Text>

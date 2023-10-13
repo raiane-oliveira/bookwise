@@ -21,19 +21,28 @@ model User {
   @@map("users")
 }
 
+model Author {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  avatar_url String?
+  created_at DateTime @default(now())
+
+  books Book[]
+
+  @@map("authors")
+}
+
 model Book {
   id         String   @id @default(uuid())
   name       String
-  author     String
   image_url  String?
   year       Int?
   rating     Float    @default(0)
   pages      Int
   created_at DateTime @default(now())
 
-  category    Category[]
-  category_id String?
-
+  authors        Author[]
+  categories     Category[]
   reviewed_books ReviewedBook[]
 
   @@map("books")

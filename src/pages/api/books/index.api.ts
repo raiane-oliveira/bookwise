@@ -16,7 +16,8 @@ export default async function handler(
       name: "asc",
     },
     include: {
-      category: true,
+      authors: true,
+      categories: true,
       reviewed_books: true,
     },
   })

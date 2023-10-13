@@ -54,6 +54,9 @@ export function BookDetails({ book }: BookDetailsProps) {
     (reviews) => reviews.user_id === session.data?.user.id,
   )
 
+  const categories = book.categories.map((category) => category.name).join(", ")
+  const authors = book.authors.map((author) => author.name).join(", ")
+
   return (
     <Dialog.Portal>
       <Dialog.Overlay
@@ -81,7 +84,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                 >
                   {book.name}
                 </Text>
-                <Text size="md">{book.author}</Text>
+                <Text size="md">{authors}</Text>
 
                 <div className="mt-auto">
                   <Stars stars={Number(book.rating)} />
@@ -104,7 +107,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                     className="font-bold leading-base text-gray-200"
                     size="md"
                   >
-                    {book.category?.name || "Nenhuma categoria"}
+                    {categories || "Nenhuma categoria"}
                   </Text>
                 </div>
               </div>

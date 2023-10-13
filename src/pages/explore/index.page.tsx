@@ -34,9 +34,11 @@ const Explore: NextPageWithLayout = () => {
     },
   )
 
-  const books = data?.filter(
-    (book) => book.category?.name.toLowerCase().includes(categorySelected),
-  )
+  const books = data?.filter((book) => {
+    return book.categories.some((category) =>
+      category.name.toLowerCase().includes(categorySelected),
+    )
+  })
 
   return (
     <main className="mt-12 w-full max-w-app pr-16">
