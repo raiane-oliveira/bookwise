@@ -61,7 +61,7 @@ export function CreateReviewForm({
 
   const {
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
     control,
   } = useForm<CreateReviewFormData>({
@@ -191,11 +191,19 @@ export function CreateReviewForm({
         </div>
 
         <div className="ml-auto flex gap-2">
-          <Button onClick={onCancelUserRating}>
+          <Button
+            onClick={onCancelUserRating}
+            disabled={isSubmitting}
+            className="disabled:cursor-not-allowed disabled:opacity-70"
+          >
             <X className="text-purple-100" />
           </Button>
 
-          <Button type="submit">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="disabled:cursor-wait disabled:opacity-70"
+          >
             <Check className="text-green-100" />
           </Button>
         </div>
