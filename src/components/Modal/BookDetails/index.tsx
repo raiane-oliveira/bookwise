@@ -38,7 +38,7 @@ export function BookDetails({ book }: BookDetailsProps) {
   const [isUserRatingBook, setIsUserRatingBook] = useState(false)
   const session = useSession()
 
-  const { data: usersReviews } = useQuery<UsersReviews[]>(
+  const { data: usersReviews, refetch } = useQuery<UsersReviews[]>(
     ["users-reviews", book.id],
     async () => {
       const response = await api.get(`/reviewed-book/${book.id}`)
@@ -157,6 +157,7 @@ export function BookDetails({ book }: BookDetailsProps) {
               <CreateReviewForm
                 bookId={book.id}
                 onCancelUserRating={handleCancelUserRating}
+                refetchData={refetch}
               />
             )}
 

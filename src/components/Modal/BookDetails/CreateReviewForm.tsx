@@ -1,7 +1,6 @@
 import { Button } from "@/components/Actions/Button"
 import { Avatar } from "@/components/Data-Display/Avatar"
 import { Box } from "@/components/Data-Display/Box"
-import { Stars } from "@/components/Data-Display/Stars"
 import { TextArea } from "@/components/Form/TextArea"
 import { Text } from "@/components/Typography/Text"
 import { useSession } from "next-auth/react"
@@ -10,14 +9,22 @@ import { useState } from "react"
 
 import * as Toggle from "@radix-ui/react-toggle"
 import { z } from "zod"
-import { Controller, FormProvider, useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/lib/axios"
 import { AxiosError } from "axios"
+import {
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+} from "@tanstack/react-query"
 
 interface CreateReviewFormProps {
   onCancelUserRating: () => void
   bookId: string
+  refetchData?: (
+    options?: (RefetchOptions & RefetchQueryFilters) | undefined,
+  ) => void
 }
 
 const MAX_LENGTH_REVIEW = 1000
@@ -25,13 +32,13 @@ const MAX_LENGTH_REVIEW = 1000
 const createReviewFormSchema = z.object({
   review: z
     .string()
-    .min(1, { message: "Não pode estar em branco." })
+    .min(1, { message: "A avaliação não pode estar em branco." })
     .max(
       MAX_LENGTH_REVIEW,
       `Não pode passar de ${MAX_LENGTH_REVIEW} caracteres.`,
     ),
   stars: z
-    .number()
+    .number({ required_error: "O livro precisa de pelo menos 1 estrela." })
     .min(1, { message: "O livro precisa de pelo menos 1 estrela." })
     .max(5),
   userId: z.string(),
@@ -43,12 +50,15 @@ type CreateReviewFormData = z.infer<typeof createReviewFormSchema>
 export function CreateReviewForm({
   onCancelUserRating,
   bookId,
+  refetchData,
 }: CreateReviewFormProps) {
   const [rating, setRating] = useState({
     stars: 0,
     hoverStars: 0,
   })
+
   const session = useSession()
+
   const {
     handleSubmit,
     formState: { errors },
@@ -63,25 +73,35 @@ export function CreateReviewForm({
     resolver: zodResolver(createReviewFormSchema),
   })
 
+  const mutation = useMutation({
+    mutationFn: (data: CreateReviewFormData) => {
+      return api.post(`/reviewed-book/${bookId}/create`, {
+        review: data.review,
+        stars: data.stars,
+        userId: data.userId,
+        bookId: data.bookId,
+      })
+    },
+  })
+
   if (session.status === "unauthenticated") return null
 
   const starsArr = Array.from(Array(5).keys())
 
   async function handleCreateUserReview(data: CreateReviewFormData) {
     try {
-      await api.post(`/reviewed-book/${bookId}/create`, {
-        review: data.review,
-        stars: data.stars,
-        userId: data.userId,
-        bookId: data.bookId,
-      })
+      await mutation.mutateAsync(data)
       onCancelUserRating()
+      if (refetchData) {
+        refetchData()
+      }
     } catch (err) {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
           alert(
             "Você já avaliou esse livro. Edite a sua avaliação ou a apague.",
           )
+          onCancelUserRating()
           return
         }
         alert("Não foi possível avaliar o livro. Tente novamente mais tarde.")
@@ -157,13 +177,18 @@ export function CreateReviewForm({
           />
         </div>
 
-        {errors.review && (
-          <Text className="text-red-500">{errors.review?.message}</Text>
-        )}
-
-        {errors.stars && (
-          <Text className="text-red-500">{errors.stars?.message}</Text>
-        )}
+        <div>
+          {errors.review && (
+            <Text className="inline-block text-red-500">
+              {errors.review?.message}
+            </Text>
+          )}{" "}
+          {errors.stars && (
+            <Text className="inline-block text-red-500">
+              {errors.stars?.message}
+            </Text>
+          )}
+        </div>
 
         <div className="ml-auto flex gap-2">
           <Button onClick={onCancelUserRating}>
