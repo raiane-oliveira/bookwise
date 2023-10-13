@@ -17,8 +17,11 @@ interface Book extends BookType {
 }
 
 const Explore: NextPageWithLayout = () => {
-  const [categorySelected, setCategorySelected] = useState("")
   const session = useSession()
+
+  const [categorySelected, setCategorySelected] = useState("")
+  const [query, setQuery] = useState("")
+
   const { data: categories, isLoading: isLoadingCategories } = useQuery<
     Category[]
   >(["all-categories"], async () => {
@@ -35,9 +38,19 @@ const Explore: NextPageWithLayout = () => {
   )
 
   const books = data?.filter((book) => {
-    return book.categories.some((category) =>
+    const bookByCategory = book.categories.some((category) =>
       category.name.toLowerCase().includes(categorySelected),
     )
+
+    const bookByName = book.name
+      .toLowerCase()
+      .includes(query.toLowerCase().trim())
+
+    const bookByAuthors = book.authors.some((author) =>
+      author.name.toLowerCase().includes(query.toLowerCase().trim()),
+    )
+
+    return bookByCategory && (bookByAuthors || bookByName)
   })
 
   return (
@@ -48,9 +61,13 @@ const Explore: NextPageWithLayout = () => {
           Explorar
         </Heading>
 
-        <form className="w-full max-w-md">
-          <Input placeholder="Buscar livro ou autor" />
-        </form>
+        <div className="w-full max-w-md">
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar livro ou autor"
+          />
+        </div>
       </div>
 
       <div className="mb-12 mt-10 flex flex-wrap gap-3">
@@ -62,12 +79,6 @@ const Explore: NextPageWithLayout = () => {
               aria-hidden
             />
           ))}
-
-        {!isLoadingBooks && !books?.length && (
-          <Text size="md" className="text-gray-100">
-            Não temos nenhum livro adicionado no momento.
-          </Text>
-        )}
 
         {categories?.length && (
           <Tag
@@ -91,6 +102,12 @@ const Explore: NextPageWithLayout = () => {
           </Tag>
         ))}
       </div>
+
+      {!isLoadingBooks && !books?.length && (
+        <Text size="md" className="text-gray-100">
+          Não encontramos nenhum livro no momento.
+        </Text>
+      )}
 
       <div className="grid grid-cols-3 gap-5">
         {isLoadingBooks &&
