@@ -68,7 +68,9 @@ export function Sidebar() {
           className="relative z-10 mt-auto"
         >
           <Avatar src={session.data?.user.avatar_url} alt="" size="sm" />
-          {session.data?.user.name}
+          <span title={session.data?.user.name}>
+            {session.data?.user.name.split(" ")[0]}
+          </span>
           <SignOut className="text-[#F75A68]" />
         </Link>
       )}

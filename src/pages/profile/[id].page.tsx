@@ -152,9 +152,9 @@ const Profile: NextPageWithLayout = () => {
             <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
               <BookOpen />
               <Text>
-                <div className="text-base/base font-bold text-gray-200">
+                <span className="block text-base/base font-bold text-gray-200">
                   {user?.profile.pagesRead}
-                </div>
+                </span>
                 Páginas lidas
               </Text>
             </div>
@@ -162,9 +162,9 @@ const Profile: NextPageWithLayout = () => {
             <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
               <Books />
               <Text>
-                <div className="text-base/base font-bold text-gray-200">
+                <span className="block text-base/base font-bold text-gray-200">
                   {user?.profile.booksReviewed}
-                </div>
+                </span>
                 Livros avaliados
               </Text>
             </div>
@@ -172,9 +172,9 @@ const Profile: NextPageWithLayout = () => {
             <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
               <UserList />
               <Text>
-                <div className="text-base/base font-bold text-gray-200">
+                <span className="block text-base/base font-bold text-gray-200">
                   {user?.profile.authorsRead}
-                </div>
+                </span>
                 Autores lidos
               </Text>
             </div>
@@ -182,9 +182,9 @@ const Profile: NextPageWithLayout = () => {
             <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
               <BookmarkSimple />
               <Text>
-                <div className="text-base/base font-bold text-gray-200">
-                  {user?.profile.mostReadCategories[0].name}
-                </div>
+                <span className="block text-base/base font-bold text-gray-200">
+                  {user?.profile.mostReadCategories[0]?.name}
+                </span>
                 Categoria mais lida
               </Text>
             </div>

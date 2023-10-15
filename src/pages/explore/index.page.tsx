@@ -55,7 +55,7 @@ const Explore: NextPageWithLayout = () => {
 
   return (
     <main className="mt-12 w-full max-w-app pr-16">
-      <div className="flex justify-between">
+      <div className="flex flex-wrap justify-between gap-6">
         <Heading>
           <Binoculars />
           Explorar
@@ -109,7 +109,7 @@ const Explore: NextPageWithLayout = () => {
         </Text>
       )}
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid-cols-explore grid gap-5">
         {isLoadingBooks &&
           Array.from(Array(15).keys()).map((n) => (
             <div
@@ -130,6 +130,7 @@ const Explore: NextPageWithLayout = () => {
               book={book}
               as="button"
               wasRead={reviewedBook?.book_id === book.id}
+              size="md"
             />
           )
         })}

@@ -13,11 +13,13 @@ interface BookWithReviewedBooks extends Book {
 export interface TrendingBookProps extends Omit<BoxProps, "children"> {
   book: BookWithReviewedBooks
   wasRead?: boolean
+  size?: "sm" | "md"
 }
 
 export function TrendingBook({
   book,
   wasRead = false,
+  size = "sm",
   ...props
 }: TrendingBookProps) {
   return (
@@ -31,12 +33,14 @@ export function TrendingBook({
           {...props}
         >
           <Image
-            width={64}
-            height={94}
+            width={size === "sm" ? 64 : 108}
+            height={size === "sm" ? 94 : 152}
             quality={100}
             src={book.image_url || ""}
             alt=""
-            className="h-[5.875rem] w-16 rounded object-cover"
+            className={`${size === "sm" && "h-[5.875rem] w-16"} ${
+              size === "md" && "h-[9.5rem] w-28"
+            } rounded object-cover`}
           />
           <div
             className={`flex flex-col pt-0.5 ${

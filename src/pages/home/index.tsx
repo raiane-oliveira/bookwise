@@ -112,7 +112,7 @@ const Home: NextPageWithLayout = () => {
 
           {isLoadingRecentBooks &&
             Array.from(Array(6).keys()).map((n) => (
-              <Box key={n} className="h-56 w-full max-w-lg animate-pulse">
+              <Box key={n} className="h-48 w-full max-w-lg animate-pulse">
                 {null}
               </Box>
             ))}
