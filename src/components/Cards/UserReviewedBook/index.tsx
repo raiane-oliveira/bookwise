@@ -4,6 +4,7 @@ import { Text } from "../../Typography/Text"
 import { Stars } from "../../Data-Display/Stars"
 import { twMerge } from "tailwind-merge"
 import { formatToRelativeDate } from "../../../utils/format-to-relative-date"
+import { ReadMore } from "@/components/Actions/ReadMore"
 
 export interface UserReviewedBookProps extends Omit<BoxProps, "children"> {
   imgProps: ImageProps
@@ -50,7 +51,7 @@ export function UserReviewedBook({
           </div>
         </div>
 
-        <Text>{book.opinion}</Text>
+        <ReadMore text={book.opinion} />
       </Box>
     )
   }

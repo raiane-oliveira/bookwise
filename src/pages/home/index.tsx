@@ -7,14 +7,10 @@ import { Text } from "@/components/Typography/Text"
 import { Link } from "@/components/Navigation/Link"
 import { TrendingBook } from "@/components/Cards/TrendingBook"
 import { Box } from "@/components/Data-Display/Box"
-import { Avatar } from "@/components/Data-Display/Avatar"
-import { Stars } from "@/components/Data-Display/Stars"
-import Image from "next/image"
 import { useSession } from "next-auth/react"
 import { api } from "@/lib/axios"
 import { useQuery } from "@tanstack/react-query"
 import { UserReviewedBook } from "@/components/Cards/UserReviewedBook"
-import { formatToRelativeDate } from "@/utils/format-to-relative-date"
 import {
   Book,
   ReviewedBook as ReviewedBookType,
@@ -23,7 +19,7 @@ import {
 import { BookDetails } from "@/components/Modal/BookDetails"
 
 import * as Dialog from "@radix-ui/react-dialog"
-import LinkNext from "next/link"
+import { RecentReviewedBook } from "./components/RecentReviewedBook"
 
 interface BookWithReviewedBooks extends Book {
   reviewed_books: ReviewedBookType[]
@@ -132,71 +128,9 @@ const Home: NextPageWithLayout = () => {
               <Text className="mb-1 text-gray-100">
                 Avaliações mais recentes
               </Text>
-              {recentReviewedBooks?.map((book) => (
-                <Box
-                  key={book.id}
-                  className="flex-col gap-8 py-6"
-                  variant="secondary"
-                >
-                  <LinkNext
-                    href={`/profile/${book.user_id}`}
-                    className="flex w-full items-start gap-4"
-                  >
-                    <Avatar src={book.user.avatar_url} alt="" />
-                    <div>
-                      <Text className="text-gray-100" size="md">
-                        {book.user.name}
-                      </Text>
-                      <Text className="text-gray-400">
-                        {formatToRelativeDate(book.created_at)}
-                      </Text>
-                    </div>
-                    <Stars className="ml-auto" stars={book.stars} />
-                  </LinkNext>
-
-                  <div className="flex gap-5">
-                    <Image
-                      src={
-                        book.book.image_url ??
-                        "https://bookscouter.com/images/main/book-cover-unavailable.svg"
-                      }
-                      alt=""
-                      quality={100}
-                      width={108}
-                      height={152}
-                      className="h-full w-28 rounded object-cover"
-                    />
-
-                    <div className="space-y-5">
-                      <section>
-                        <Text
-                          size="md"
-                          className="font-bold leading-base text-gray-100"
-                        >
-                          {book.book.name}
-                        </Text>
-                        <Text className="text-gray-400">
-                          {book.book.authors
-                            .map((author) => author.name)
-                            .join(", ")}
-                        </Text>
-                      </section>
-
-                      <Text className="line-clamp-4">
-                        {book.review}
-                        <Link
-                          href={`/`}
-                          variant="secondary"
-                          size="sm"
-                          className="inline"
-                        >
-                          ver mais
-                        </Link>
-                      </Text>
-                    </div>
-                  </div>
-                </Box>
-              ))}
+              {recentReviewedBooks?.map((book) => {
+                return <RecentReviewedBook key={book.id} book={book} />
+              })}
             </>
           )}
         </div>

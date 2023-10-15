@@ -16,6 +16,7 @@ import { formatToRelativeDate } from "@/utils/format-to-relative-date"
 import { useState } from "react"
 import { CreateReviewForm } from "./CreateReviewForm"
 import LinkNext from "next/link"
+import { ReadMore } from "@/components/Actions/ReadMore"
 
 const nunitoSans = NunitoSans({
   subsets: ["latin"],
@@ -178,7 +179,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                   </div>
                   <Stars stars={currentUserReview.stars} className="ml-auto" />
                 </LinkNext>
-                <Text>{currentUserReview.review}</Text>
+                <ReadMore text={currentUserReview.review} />
               </Box>
             )}
 
@@ -212,7 +213,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                     </div>
                     <Stars stars={book.stars} className="ml-auto" />
                   </LinkNext>
-                  <Text>{book.review}</Text>
+                  <ReadMore text={book.review} />
                 </Box>
               )
             })}
