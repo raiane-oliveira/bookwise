@@ -20,7 +20,7 @@ export function Default({ children }: DefaultProps) {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <div
-          className={`${nunitoSans.variable} flex min-h-screen items-start gap-24 bg-gray-800 p-5 font-sans`}
+          className={`${nunitoSans.variable} flex min-h-screen items-start gap-24 bg-gray-800 p-5 pl-[20.5rem] font-sans`}
         >
           <Sidebar />
           {children}

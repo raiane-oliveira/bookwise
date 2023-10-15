@@ -14,7 +14,7 @@ export function Sidebar() {
   }
 
   return (
-    <div className="relative flex min-h-[61.75rem] w-full max-w-[14.5rem] flex-col items-center gap-16 overflow-hidden rounded-xl bg-gray-800 py-12">
+    <div className="fixed bottom-4 left-5 top-5 flex w-full max-w-[14.5rem] flex-col items-center gap-16 overflow-hidden rounded-xl bg-gray-800 py-12">
       <div
         aria-hidden
         className="absolute -left-20 -top-20 h-56 w-56 rounded-full bg-green-200 opacity-50 blur-[94px]"
@@ -62,6 +62,7 @@ export function Sidebar() {
         </Link>
       ) : (
         <Link
+          href=""
           as="button"
           onClick={handleSignOut}
           className="relative z-10 mt-auto"
