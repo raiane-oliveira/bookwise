@@ -15,6 +15,7 @@ import { Avatar } from "../../Data-Display/Avatar"
 import { formatToRelativeDate } from "@/utils/format-to-relative-date"
 import { useState } from "react"
 import { CreateReviewForm } from "./CreateReviewForm"
+import LinkNext from "next/link"
 
 const nunitoSans = NunitoSans({
   subsets: ["latin"],
@@ -22,12 +23,8 @@ const nunitoSans = NunitoSans({
   variable: "--font-nunito-sans",
 })
 
-interface BookWithReviewedBooks extends Book {
-  reviewed_books: ReviewedBook[]
-}
-
 interface BookDetailsProps {
-  book: BookWithReviewedBooks
+  book: Book
 }
 
 interface UsersReviews extends ReviewedBook {
@@ -54,7 +51,9 @@ export function BookDetails({ book }: BookDetailsProps) {
     (reviews) => reviews.user_id === session.data?.user.id,
   )
 
-  const categories = book.categories.map((category) => category.name).join(", ")
+  const categories = book.categories
+    ?.map((category) => category.name)
+    .join(", ")
   const authors = book.authors.map((author) => author.name).join(", ")
 
   return (
@@ -89,10 +88,8 @@ export function BookDetails({ book }: BookDetailsProps) {
                 <div className="mt-auto">
                   <Stars stars={Number(book.rating)} />
                   <Text className="mt-1 text-gray-400">
-                    {book.reviewed_books.length}{" "}
-                    {book.reviewed_books.length === 1
-                      ? "avaliação"
-                      : "avaliações"}
+                    {usersReviews?.length}{" "}
+                    {usersReviews?.length === 1 ? "avaliação" : "avaliações"}
                   </Text>
                 </div>
               </div>
@@ -163,7 +160,10 @@ export function BookDetails({ book }: BookDetailsProps) {
 
             {currentUserReview && (
               <Box size="sm" className="flex-col p-6">
-                <div className="flex items-start gap-4">
+                <LinkNext
+                  href={`/profile/${currentUserReview.user_id}`}
+                  className="flex items-start gap-4"
+                >
                   <Avatar src={currentUserReview.user.avatar_url} alt="" />
                   <div>
                     <Text
@@ -177,7 +177,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                     </Text>
                   </div>
                   <Stars stars={currentUserReview.stars} className="ml-auto" />
-                </div>
+                </LinkNext>
                 <Text>{currentUserReview.review}</Text>
               </Box>
             )}
@@ -194,7 +194,10 @@ export function BookDetails({ book }: BookDetailsProps) {
                   variant="secondary"
                   className="flex-col p-6"
                 >
-                  <div className="flex items-start gap-4">
+                  <LinkNext
+                    href={`/profile/${book.user_id}`}
+                    className="flex items-start gap-4"
+                  >
                     <Avatar src={book.user.avatar_url} alt="" />
                     <div>
                       <Text
@@ -208,7 +211,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                       </Text>
                     </div>
                     <Stars stars={book.stars} className="ml-auto" />
-                  </div>
+                  </LinkNext>
                   <Text>{book.review}</Text>
                 </Box>
               )

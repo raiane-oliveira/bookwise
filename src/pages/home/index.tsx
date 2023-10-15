@@ -20,6 +20,10 @@ import {
   ReviewedBook as ReviewedBookType,
   User,
 } from "@/@types/interfaces"
+import { BookDetails } from "@/components/Modal/BookDetails"
+
+import * as Dialog from "@radix-ui/react-dialog"
+import LinkNext from "next/link"
 
 interface BookWithReviewedBooks extends Book {
   reviewed_books: ReviewedBookType[]
@@ -44,12 +48,13 @@ const Home: NextPageWithLayout = () => {
       return response.data
     })
 
-  const { data: books, isLoading: isLoadingBooks } = useQuery<
-    BookWithReviewedBooks[]
-  >(["all-books"], async () => {
-    const response = await api.get("/books?limit=4")
-    return response.data
-  })
+  const { data: books } = useQuery<BookWithReviewedBooks[]>(
+    ["all-books"],
+    async () => {
+      const response = await api.get("/books?limit=4")
+      return response.data
+    },
+  )
 
   const lastReviewedUserBook = recentBooksData?.lastReviewedUserBook
     ? recentBooksData.lastReviewedUserBook
@@ -73,30 +78,39 @@ const Home: NextPageWithLayout = () => {
                 <Text className=" text-gray-100">
                   Sua última leitura avaliada
                 </Text>
-                <Link href="/" size="sm" variant="secondary">
+                <Link
+                  href={`/profile/${lastReviewedUserBook.user_id}`}
+                  size="sm"
+                  variant="secondary"
+                >
                   Ver todas <CaretRight />
                 </Link>
               </div>
 
-              <UserReviewedBook
-                imgProps={{
-                  src:
-                    lastReviewedUserBook.book.image_url ??
-                    "https://bookscouter.com/images/main/book-cover-unavailable.svg",
-                  alt: "",
-                }}
-                book={{
-                  title: lastReviewedUserBook.book.name,
-                  authors: lastReviewedUserBook.book.authors.map(
-                    (author) => author.name,
-                  ),
-                  stars: lastReviewedUserBook.stars,
-                  opinion: lastReviewedUserBook.review,
-                  createdAt: lastReviewedUserBook.created_at,
-                }}
-                className="mb-7 [&_>_div]:h-full"
-                as="button"
-              />
+              <Dialog.Root>
+                <Dialog.Trigger asChild>
+                  <UserReviewedBook
+                    imgProps={{
+                      src:
+                        lastReviewedUserBook.book.image_url ??
+                        "https://bookscouter.com/images/main/book-cover-unavailable.svg",
+                      alt: "",
+                    }}
+                    book={{
+                      title: lastReviewedUserBook.book.name,
+                      authors: lastReviewedUserBook.book.authors.map(
+                        (author) => author.name,
+                      ),
+                      stars: lastReviewedUserBook.stars,
+                      opinion: lastReviewedUserBook.review,
+                      createdAt: lastReviewedUserBook.created_at,
+                    }}
+                    className="mb-7 [&_>_div]:h-full"
+                    as="button"
+                  />
+                </Dialog.Trigger>
+                <BookDetails book={lastReviewedUserBook.book} />
+              </Dialog.Root>
             </>
           )}
 
@@ -123,10 +137,11 @@ const Home: NextPageWithLayout = () => {
                   key={book.id}
                   className="flex-col gap-8 py-6"
                   variant="secondary"
-                  hasHover
-                  as="button"
                 >
-                  <div className="flex w-full items-start gap-4">
+                  <LinkNext
+                    href={`/profile/${book.user_id}`}
+                    className="flex w-full items-start gap-4"
+                  >
                     <Avatar src={book.user.avatar_url} alt="" />
                     <div>
                       <Text className="text-gray-100" size="md">
@@ -137,7 +152,7 @@ const Home: NextPageWithLayout = () => {
                       </Text>
                     </div>
                     <Stars className="ml-auto" stars={book.stars} />
-                  </div>
+                  </LinkNext>
 
                   <div className="flex gap-5">
                     <Image

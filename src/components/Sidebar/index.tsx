@@ -49,7 +49,7 @@ export function Sidebar() {
         </NavLink>
 
         {session.status === "authenticated" && (
-          <NavLink href="/profile" icon={User}>
+          <NavLink href={`/profile/${session.data?.user.id}`} icon={User}>
             Perfil
           </NavLink>
         )}

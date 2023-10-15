@@ -40,6 +40,7 @@ const config: Config = {
       },
       gridTemplateColumns: {
         home: "minmax(20.25rem, 1fr) minmax(15rem, 20.25rem)",
+        profile: "minmax(20rem, 39rem) minmax(15rem, 19.25rem)",
       },
     },
   },
