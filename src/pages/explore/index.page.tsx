@@ -109,7 +109,7 @@ const Explore: NextPageWithLayout = () => {
         </Text>
       )}
 
-      <div className="grid-cols-explore grid gap-5">
+      <div className="grid grid-cols-explore gap-5">
         {isLoadingBooks &&
           Array.from(Array(15).keys()).map((n) => (
             <div

@@ -184,6 +184,8 @@ const Profile: NextPageWithLayout = () => {
               <Text>
                 <span className="block text-base/base font-bold text-gray-200">
                   {user?.profile.mostReadCategories[0]?.name}
+                  {!user?.profile.mostReadCategories[0]?.name &&
+                    "Nenhuma categoria"}
                 </span>
                 Categoria mais lida
               </Text>
