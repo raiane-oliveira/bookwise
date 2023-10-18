@@ -12,7 +12,7 @@
 </p>
 
 <h4 align="center"> 
-	✔️  BookWise - Completed  ✔️
+	🚧 BookWise 🗃️ Building... 🚧 
 </h4>
 
 <p align="center">
