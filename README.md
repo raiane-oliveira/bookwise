@@ -1,40 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+  <a  href="https://github.com/raiane-oliveira/bookWise/">
+   <div>
+      <img src="./src/assets/logo.svg" alt="Ignite logo" width="200" />
+    </div>
+  </a>
+</h1>
 
-## Getting Started
+<p align="center">
+  <img src="https://badgen.net/npm/v/next/" />
+  <img src="https://badgen.net/github/contributors/raiane-oliveira/ignite-call" />
+</p>
 
-First, run the development server:
+<h4 align="center"> 
+	✔️  BookWise - Completed  ✔️
+</h4>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
+ <a href="#-about">About</a> •
+ <a href="#-features">Features</a> •
+ <a href="#-tech-stack">Tech Stack</a> • 
+ <a href="#-learnings">Learnings</a> •
+ <a href="#-feedbacks">Feedbacks</a>
+</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💻 About
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+A full-stack application that manages a virtual library, with the possibility to create an account, review, explore and search books, as well as visit other users profiles.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+<img src="https://github.com/raiane-oliveira/ignite-call/assets/100815627/a5e54abd-15b2-46ad-b250-589f067cb375" />
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The database was deployed in <a href="https://planetscale.com">Planetscale</a> and the application on <a href="https://vercel.com">Vercel</a>.
+This challenge was offered in Rocketseat's Ignite course.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🪸 Features
 
-## Learn More
+- [x] Create user account by Google or GitHub providers, or access application as a visitor.
+- [x] Shows profile page if the user is logged.
+- [x] Rate and review books.
+- [x] Search books by category, title, or author. Same with user's reviewed books.
+- [x] Display number of pages, books and authors read, as well as most read category.
 
-To learn more about Next.js, take a look at the following resources:
+## 📒 Learnings
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Change layout if the user is authenticated or not.
+- Document components and pages using Storybook, basing on the Atomic Design pattern.
+- Database modulation with Prisma, defining many-to-many or one-to-many relationships
+- Connect and run MySQL docker container into Prisma ORM
+- Deploy MySQL database and manage Google console and Github to get OAuth screen permissions.
+- Deal with multiples layouts in NextJS.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🛠 Tech Stack
 
-## Deploy on Vercel
+- NextJS
+  - next-auth
+  - dayjs
+  - Radix UI
+- Prisma
+- Storybook
+- MySQL
+- Docker
+- TypeScript
+- TailwindCSS
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Feedbacks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you have opinions on how I can improve this application, please send me a message on <a href="https://www.linkedin.com/in/raiane-oliveira-dev">Linkedin</a> or an <a href="mailto:raiane.oliveira404@gmail.com">email</a>.
+I will be happy to answer and learn more from you! ;)
