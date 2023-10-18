@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
@@ -54,11 +55,14 @@ model ReviewedBook {
   stars      Float
   created_at DateTime @default(now())
 
-  user    User   @relation(fields: [user_id], references: [id])
-  book    Book   @relation(fields: [book_id], references: [id])
   user_id String
   book_id String
 
+  user User @relation(fields: [user_id], references: [id])
+  book Book @relation(fields: [book_id], references: [id])
+
+  @@index([user_id])
+  @@index([book_id])
   @@map("reviewed_books")
 }
 
@@ -89,6 +93,7 @@ model Account {
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([provider, provider_account_id])
+  @@index([user_id])
   @@map("accounts")
 }
 
@@ -100,5 +105,6 @@ model Session {
 
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
+  @@index([user_id])
   @@map("sessions")
 }
