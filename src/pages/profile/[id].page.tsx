@@ -77,7 +77,7 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <>
-      <NextSeo title={`Perfil ${user?.profile.name} | BookWise`} />
+      <NextSeo title={`${user?.profile.name} | BookWise`} />
       <main className="mt-14 w-full max-w-app space-y-10">
         {session.data?.user.id === user?.profile.id ? (
           <Heading>
