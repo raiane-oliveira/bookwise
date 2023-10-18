@@ -27,6 +27,7 @@ export default async function handler(
       book: {
         include: {
           authors: true,
+          categories: true,
         },
       },
     },
@@ -44,6 +45,7 @@ export default async function handler(
       book: {
         include: {
           authors: true,
+          categories: true,
         },
       },
     },
