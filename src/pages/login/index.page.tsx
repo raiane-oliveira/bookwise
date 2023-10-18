@@ -5,19 +5,11 @@ import { Text } from "@/components/Typography/Text"
 import Image from "next/image"
 import Link from "next/link"
 import { RocketLaunch } from "phosphor-react"
-import { Nunito_Sans as NunitoSans } from "next/font/google"
-
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import { Google } from "@/components/SignIn/Google"
 import { GitHub } from "@/components/SignIn/GitHub"
-
-const nunitoSans = NunitoSans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-nunito-sans",
-})
 
 export default function Login() {
   const session = useSession()
@@ -36,7 +28,7 @@ export default function Login() {
   return (
     <div className="bg-gray-800">
       <main
-        className={`${nunitoSans.variable} mx-auto flex min-h-screen max-w-app justify-center p-5 font-sans md:justify-between md:gap-4`}
+        className={`mx-auto flex min-h-screen max-w-app justify-center p-5 font-sans md:justify-between md:gap-4`}
       >
         <div className="relative grid w-full max-w-xl place-content-center overflow-hidden rounded-lg">
           <Image

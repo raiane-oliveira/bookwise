@@ -7,6 +7,7 @@ export interface BoxProps extends ComponentProps<"div"> {
   size?: "sm" | "md"
   hasHover?: boolean
   as?: ElementType | string
+  href?: string
 }
 
 export function Box({

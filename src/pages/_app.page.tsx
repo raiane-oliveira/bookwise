@@ -14,6 +14,14 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
+import { Nunito_Sans as NunitoSans } from "next/font/google"
+
+const nunitoSans = NunitoSans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nunito-sans",
+})
+
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -21,8 +29,18 @@ export default function App({
   const getLayout = Component.getLayout || ((page) => page)
 
   return getLayout(
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>,
+    <>
+      <style jsx global>
+        {`
+          :root {
+            --font-nunito-sans: ${nunitoSans.style.fontFamily};
+          }
+        `}
+      </style>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+      ,
+    </>,
   )
 }

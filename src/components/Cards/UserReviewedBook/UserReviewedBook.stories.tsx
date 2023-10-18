@@ -12,7 +12,7 @@ export default {
     },
     book: {
       title: "Entendendo Algoritmos",
-      author: "Aditya Bhargava",
+      authors: ["Aditya Bhargava"],
       stars: 5,
       createdAt: new Date(),
       opinion:

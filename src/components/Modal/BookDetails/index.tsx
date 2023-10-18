@@ -7,7 +7,6 @@ import { Book, ReviewedBook, User } from "@/@types/interfaces"
 import { Text } from "../../Typography/Text"
 import { Stars } from "../../Data-Display/Stars"
 import { Link } from "../../Navigation/Link"
-import { Nunito_Sans as NunitoSans } from "next/font/google"
 import { Login } from "../Login"
 import { useQuery } from "@tanstack/react-query"
 import { api } from "@/lib/axios"
@@ -17,12 +16,6 @@ import { useState } from "react"
 import { CreateReviewForm } from "./CreateReviewForm"
 import LinkNext from "next/link"
 import { ReadMore } from "@/components/Actions/ReadMore"
-
-const nunitoSans = NunitoSans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-nunito-sans",
-})
 
 interface BookDetailsProps {
   book: Book
@@ -60,7 +53,7 @@ export function BookDetails({ book }: BookDetailsProps) {
   return (
     <Dialog.Portal>
       <Dialog.Overlay
-        className={`fixed inset-0 z-50 grid bg-black/60 ${nunitoSans.variable} overflow-y-auto font-sans`}
+        className={`fixed inset-0 z-50 grid overflow-y-auto bg-black/60`}
       >
         <Dialog.Content className="ml-auto h-full w-full max-w-[41.25rem] bg-gray-800 px-12 py-16 shadow-[-4px_0px_30px_0px_rgba(0,0,0,0.50)]">
           <Dialog.Close className="absolute right-8 top-6">

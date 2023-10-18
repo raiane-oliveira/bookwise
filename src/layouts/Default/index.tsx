@@ -2,14 +2,7 @@ import { Sidebar } from "@/components/Sidebar"
 import { queryClient } from "@/lib/react-query"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { SessionProvider } from "next-auth/react"
-import { Nunito_Sans as NunitoSans } from "next/font/google"
 import { ReactNode } from "react"
-
-const nunitoSans = NunitoSans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-nunito-sans",
-})
 
 interface DefaultProps {
   children: ReactNode
@@ -20,7 +13,7 @@ export function Default({ children }: DefaultProps) {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <div
-          className={`${nunitoSans.variable} flex min-h-screen items-start gap-24 bg-gray-800 p-5 pl-[20.5rem] font-sans`}
+          className={` flex min-h-screen items-start gap-24 bg-gray-800 p-5 pl-[20.5rem]`}
         >
           <Sidebar />
           {children}
