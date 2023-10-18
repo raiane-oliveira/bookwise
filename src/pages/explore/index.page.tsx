@@ -11,6 +11,7 @@ import { Tag } from "@/components/Actions/Tag"
 import { TrendingBook } from "@/components/Cards/TrendingBook"
 import { useSession } from "next-auth/react"
 import { Text } from "@/components/Typography/Text"
+import { NextSeo } from "next-seo"
 
 interface Book extends BookType {
   reviewed_books: ReviewedBook[]
@@ -54,88 +55,91 @@ const Explore: NextPageWithLayout = () => {
   })
 
   return (
-    <main className="mt-12 w-full max-w-app pr-16">
-      <div className="flex flex-wrap justify-between gap-6">
-        <Heading>
-          <Binoculars />
-          Explorar
-        </Heading>
+    <>
+      <NextSeo title="Explore nossos livros | BookWise" />
+      <main className="mt-12 w-full max-w-app pr-16">
+        <div className="flex flex-wrap justify-between gap-6">
+          <Heading>
+            <Binoculars />
+            Explorar
+          </Heading>
 
-        <div className="w-full max-w-md">
-          <Input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar livro ou autor"
-          />
-        </div>
-      </div>
-
-      <div className="mb-12 mt-10 flex flex-wrap gap-3">
-        {isLoadingCategories &&
-          Array.from(Array(8).keys()).map((n) => (
-            <div
-              key={n}
-              className="h-7 w-24 animate-pulse rounded-full bg-purple-200"
-              aria-hidden
+          <div className="w-full max-w-md">
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Buscar livro ou autor"
             />
-          ))}
+          </div>
+        </div>
 
-        {categories?.length && (
-          <Tag
-            defaultPressed
-            pressed={!categorySelected}
-            onPressedChange={() => setCategorySelected("")}
-          >
-            Tudo
-          </Tag>
+        <div className="mb-12 mt-10 flex flex-wrap gap-3">
+          {isLoadingCategories &&
+            Array.from(Array(8).keys()).map((n) => (
+              <div
+                key={n}
+                className="h-7 w-24 animate-pulse rounded-full bg-purple-200"
+                aria-hidden
+              />
+            ))}
+
+          {categories?.length && (
+            <Tag
+              defaultPressed
+              pressed={!categorySelected}
+              onPressedChange={() => setCategorySelected("")}
+            >
+              Tudo
+            </Tag>
+          )}
+
+          {categories?.map((category) => (
+            <Tag
+              key={String(category.id)}
+              onPressedChange={() =>
+                setCategorySelected(category.name.toLowerCase())
+              }
+              pressed={categorySelected === category.name.toLowerCase()}
+            >
+              {category.name}
+            </Tag>
+          ))}
+        </div>
+
+        {!isLoadingBooks && !books?.length && (
+          <Text size="md" className="text-gray-100">
+            Não encontramos nenhum livro no momento.
+          </Text>
         )}
 
-        {categories?.map((category) => (
-          <Tag
-            key={String(category.id)}
-            onPressedChange={() =>
-              setCategorySelected(category.name.toLowerCase())
-            }
-            pressed={categorySelected === category.name.toLowerCase()}
-          >
-            {category.name}
-          </Tag>
-        ))}
-      </div>
+        <div className="grid grid-cols-explore gap-5">
+          {isLoadingBooks &&
+            Array.from(Array(15).keys()).map((n) => (
+              <div
+                key={n}
+                className="h-36 w-full animate-pulse rounded-lg bg-gray-700"
+                aria-hidden
+              />
+            ))}
 
-      {!isLoadingBooks && !books?.length && (
-        <Text size="md" className="text-gray-100">
-          Não encontramos nenhum livro no momento.
-        </Text>
-      )}
+          {books?.map((book) => {
+            const reviewedBook = book.reviewed_books.find(
+              (reviewedBook) => reviewedBook.user_id === session.data?.user.id,
+            )
 
-      <div className="grid grid-cols-explore gap-5">
-        {isLoadingBooks &&
-          Array.from(Array(15).keys()).map((n) => (
-            <div
-              key={n}
-              className="h-36 w-full animate-pulse rounded-lg bg-gray-700"
-              aria-hidden
-            />
-          ))}
-
-        {books?.map((book) => {
-          const reviewedBook = book.reviewed_books.find(
-            (reviewedBook) => reviewedBook.user_id === session.data?.user.id,
-          )
-
-          return (
-            <TrendingBook
-              key={book.id}
-              book={book}
-              as="button"
-              wasRead={reviewedBook?.book_id === book.id}
-              size="md"
-            />
-          )
-        })}
-      </div>
-    </main>
+            return (
+              <TrendingBook
+                key={book.id}
+                book={book}
+                as="button"
+                wasRead={reviewedBook?.book_id === book.id}
+                size="md"
+              />
+            )
+          })}
+        </div>
+      </main>
+    </>
   )
 }
 

@@ -15,6 +15,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 import { Nunito_Sans as NunitoSans } from "next/font/google"
+import { DefaultSeo } from "next-seo"
 
 const nunitoSans = NunitoSans({
   subsets: ["latin"],
@@ -38,6 +39,54 @@ export default function App({
         `}
       </style>
       <SessionProvider session={session}>
+        <DefaultSeo
+          openGraph={{
+            type: "website",
+            locale: "pt_BR",
+            url: "https://raianebookwise.vercel.app/",
+            siteName: "BookWise",
+            title: "BookWise",
+          }}
+          additionalLinkTags={[
+            {
+              rel: "apple-touch-icon",
+              href: "/apple-touch-icon.png",
+              sizes: "180x180",
+            },
+            {
+              rel: "icon",
+              type: "image/png",
+              sizes: "32x32",
+              href: "/favicon-32x32.png",
+            },
+            {
+              rel: "icon",
+              type: "image/png",
+              sizes: "16x16",
+              href: "/favicon-16x16.png",
+            },
+            {
+              rel: "manifest",
+              href: "/site.webmanifest",
+            },
+            {
+              rel: "mask-icon",
+              href: "/safari-pinned-tab.svg",
+              color: "#8381d9",
+            },
+          ]}
+          additionalMetaTags={[
+            {
+              name: "msapplication-TileColor",
+              content: "#8381d9",
+            },
+            {
+              name: "theme-color",
+              content: "#0E1116",
+            },
+          ]}
+        />
+
         <Component {...pageProps} />
       </SessionProvider>
       ,

@@ -25,6 +25,7 @@ import dayjs from "dayjs"
 
 import * as Dialog from "@radix-ui/react-dialog"
 import { BookDetails } from "@/components/Modal/BookDetails"
+import { NextSeo } from "next-seo"
 
 interface ReviewedBooks extends ReviewedBook {
   book: Book
@@ -75,125 +76,128 @@ const Profile: NextPageWithLayout = () => {
     : null
 
   return (
-    <main className="mt-14 w-full max-w-app space-y-10">
-      {session.data?.user.id === user?.profile.id ? (
-        <Heading>
-          <User />
-          Perfil
-        </Heading>
-      ) : (
-        <Link href="" as="button" onClick={() => router.back()}>
-          <CaretLeft />
-          Voltar
-        </Link>
-      )}
+    <>
+      <NextSeo title={`Perfil ${user?.profile.name} | BookWise`} />
+      <main className="mt-14 w-full max-w-app space-y-10">
+        {session.data?.user.id === user?.profile.id ? (
+          <Heading>
+            <User />
+            Perfil
+          </Heading>
+        ) : (
+          <Link href="" as="button" onClick={() => router.back()}>
+            <CaretLeft />
+            Voltar
+          </Link>
+        )}
 
-      <div className="grid grid-cols-profile gap-16">
-        <div className="flex flex-col gap-6">
-          <Input
-            placeholder="Buscar livro avaliado"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+        <div className="grid grid-cols-profile gap-16">
+          <div className="flex flex-col gap-6">
+            <Input
+              placeholder="Buscar livro avaliado"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
 
-          <div className="mt-4 space-y-6">
-            {user &&
-              reviewedBooks?.map((reviewBook) => {
-                return (
-                  <div className="flex flex-col gap-2" key={reviewBook.id}>
-                    <Text>{formatToRelativeDate(reviewBook.created_at)}</Text>
-                    <Dialog.Root>
-                      <Dialog.Trigger asChild>
-                        <UserReviewedBook
-                          hasHover
-                          as="button"
-                          book={{
-                            title: reviewBook.book.name,
-                            authors: reviewBook.book.authors.map(
-                              (author) => author.name,
-                            ),
-                            createdAt: reviewBook.created_at,
-                            opinion: reviewBook.review,
-                            stars: reviewBook.stars,
-                          }}
-                          imgProps={{
-                            src: reviewBook.book.image_url || "",
-                            alt: "",
-                          }}
-                          variant="secondary"
-                        />
-                      </Dialog.Trigger>
+            <div className="mt-4 space-y-6">
+              {user &&
+                reviewedBooks?.map((reviewBook) => {
+                  return (
+                    <div className="flex flex-col gap-2" key={reviewBook.id}>
+                      <Text>{formatToRelativeDate(reviewBook.created_at)}</Text>
+                      <Dialog.Root>
+                        <Dialog.Trigger asChild>
+                          <UserReviewedBook
+                            hasHover
+                            as="button"
+                            book={{
+                              title: reviewBook.book.name,
+                              authors: reviewBook.book.authors.map(
+                                (author) => author.name,
+                              ),
+                              createdAt: reviewBook.created_at,
+                              opinion: reviewBook.review,
+                              stars: reviewBook.stars,
+                            }}
+                            imgProps={{
+                              src: reviewBook.book.image_url || "",
+                              alt: "",
+                            }}
+                            variant="secondary"
+                          />
+                        </Dialog.Trigger>
 
-                      <BookDetails book={reviewBook.book} />
-                    </Dialog.Root>
-                  </div>
-                )
-              })}
+                        <BookDetails book={reviewBook.book} />
+                      </Dialog.Root>
+                    </div>
+                  )
+                })}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-8 border-l border-l-gray-700">
+            <div className="flex flex-col items-center gap-5 pb-2 text-center">
+              <Avatar size="lg" src={user?.profile.avatar_url} alt="" />
+              <div>
+                <Text className="text-xl/base font-bold text-gray-100">
+                  {user?.profile.name}
+                </Text>
+                <Text className="text-gray-400">{memberSince}</Text>
+              </div>
+            </div>
+
+            <div
+              className="mx-auto h-1 w-8 rounded-full bg-gradient-horizontal"
+              aria-hidden
+            />
+
+            <div className="space-y-10 px-14 py-5">
+              <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
+                <BookOpen />
+                <Text>
+                  <span className="block text-base/base font-bold text-gray-200">
+                    {user?.profile.pagesRead}
+                  </span>
+                  Páginas lidas
+                </Text>
+              </div>
+
+              <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
+                <Books />
+                <Text>
+                  <span className="block text-base/base font-bold text-gray-200">
+                    {user?.profile.booksReviewed}
+                  </span>
+                  Livros avaliados
+                </Text>
+              </div>
+
+              <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
+                <UserList />
+                <Text>
+                  <span className="block text-base/base font-bold text-gray-200">
+                    {user?.profile.authorsRead}
+                  </span>
+                  Autores lidos
+                </Text>
+              </div>
+
+              <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
+                <BookmarkSimple />
+                <Text>
+                  <span className="block text-base/base font-bold text-gray-200">
+                    {user?.profile.mostReadCategories[0]?.name}
+                    {!user?.profile.mostReadCategories[0]?.name &&
+                      "Nenhuma categoria"}
+                  </span>
+                  Categoria mais lida
+                </Text>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="flex flex-col gap-8 border-l border-l-gray-700">
-          <div className="flex flex-col items-center gap-5 pb-2 text-center">
-            <Avatar size="lg" src={user?.profile.avatar_url} alt="" />
-            <div>
-              <Text className="text-xl/base font-bold text-gray-100">
-                {user?.profile.name}
-              </Text>
-              <Text className="text-gray-400">{memberSince}</Text>
-            </div>
-          </div>
-
-          <div
-            className="mx-auto h-1 w-8 rounded-full bg-gradient-horizontal"
-            aria-hidden
-          />
-
-          <div className="space-y-10 px-14 py-5">
-            <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
-              <BookOpen />
-              <Text>
-                <span className="block text-base/base font-bold text-gray-200">
-                  {user?.profile.pagesRead}
-                </span>
-                Páginas lidas
-              </Text>
-            </div>
-
-            <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
-              <Books />
-              <Text>
-                <span className="block text-base/base font-bold text-gray-200">
-                  {user?.profile.booksReviewed}
-                </span>
-                Livros avaliados
-              </Text>
-            </div>
-
-            <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
-              <UserList />
-              <Text>
-                <span className="block text-base/base font-bold text-gray-200">
-                  {user?.profile.authorsRead}
-                </span>
-                Autores lidos
-              </Text>
-            </div>
-
-            <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
-              <BookmarkSimple />
-              <Text>
-                <span className="block text-base/base font-bold text-gray-200">
-                  {user?.profile.mostReadCategories[0]?.name}
-                  {!user?.profile.mostReadCategories[0]?.name &&
-                    "Nenhuma categoria"}
-                </span>
-                Categoria mais lida
-              </Text>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   )
 }
 
