@@ -28,8 +28,8 @@ export interface ReviewedBook {
 }
 
 export interface Category {
-  id: String
-  name: String
+  id: string
+  name: string
   created_at: Date
 }
 

@@ -1,10 +1,11 @@
 import { MagnifyingGlass } from "phosphor-react"
-import { ComponentProps, useState } from "react"
+import { ComponentProps, forwardRef, useState } from "react"
 import { twMerge } from "tailwind-merge"
 
 export interface InputProps extends ComponentProps<"input"> {}
 
-export function Input(props: InputProps) {
+// eslint-disable-next-line react/display-name
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const [active, setActive] = useState(false)
 
   return (
@@ -21,6 +22,7 @@ export function Input(props: InputProps) {
           `peer flex-1 bg-transparent font-sans text-sm/relaxed text-gray-200 caret-green-100 outline-none placeholder:text-gray-400`,
           props.className,
         )}
+        ref={ref}
       />
       <MagnifyingGlass
         weight="bold"
@@ -28,4 +30,4 @@ export function Input(props: InputProps) {
       />
     </div>
   )
-}
+})
