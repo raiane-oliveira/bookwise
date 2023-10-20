@@ -167,7 +167,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                       {currentUserReview.user.name}
                     </Text>
                     <Text className="text-gray-400">
-                      {formatToRelativeDate(book.created_at)}
+                      {formatToRelativeDate(currentUserReview.created_at)}
                     </Text>
                   </div>
                   <Stars stars={currentUserReview.stars} className="ml-auto" />
