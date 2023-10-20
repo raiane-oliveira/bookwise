@@ -12,7 +12,7 @@
 </p>
 
 <h4 align="center"> 
-	🚧 BookWise 🗃️ Building... 🚧 
+	✔️  BookWise - Completed ✔️ 
 </h4>
 
 <p align="center">
@@ -40,7 +40,7 @@ This challenge was offered in Rocketseat's Ignite course.
 - [x] Search books by category, title, or author. Same with user's reviewed books.
 - [x] Display the number of pages, books, and authors read, as well as the most read category.
 - [x] Shows recent user reviews and the last review of your account.
-- [ ] Responsive design
+- [x] Responsive design
 
 ## 📒 Learnings
 

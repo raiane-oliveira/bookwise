@@ -151,7 +151,7 @@ const Profile: NextPageWithLayout = () => {
               aria-hidden
             />
 
-            <div className="space-y-8 px-6 py-5 max-lg:mx-auto sm:space-y-10 sm:px-14">
+            <div className="space-y-8 px-6 py-5 sm:mx-auto sm:space-y-10 sm:px-14">
               <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
                 <BookOpen />
                 <Text>
