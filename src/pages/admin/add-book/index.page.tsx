@@ -3,7 +3,7 @@ import { NextPageWithLayout } from "../../_app.page"
 import { NextSeo } from "next-seo"
 import { Heading } from "@/components/Typography/Heading"
 import { Book } from "phosphor-react"
-import { FormProvider, useForm } from "react-hook-form"
+import { FormProvider, useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "@/lib/axios"
@@ -13,6 +13,7 @@ import { Input } from "@/components/Form/Input"
 import { Text } from "@/components/Typography/Text"
 import { Button } from "@/components/Actions/Button"
 import { AddAuthorAndCategory } from "./add-author-category"
+import { useEffect, useState } from "react"
 
 const createBookFormSchema = z.object({
   name: z.string().min(1, "Não pode estar vazio."),
@@ -47,6 +48,8 @@ const createBookFormSchema = z.object({
 export type CreateBookFormData = z.input<typeof createBookFormSchema>
 
 const AddBook: NextPageWithLayout = () => {
+  const [authorSelected, setAuthorSelected] = useState("")
+  const [categorySelected, setCategorySelected] = useState("")
   const createBookForm = useForm<CreateBookFormData>({
     resolver: zodResolver(createBookFormSchema),
   })
@@ -54,9 +57,19 @@ const AddBook: NextPageWithLayout = () => {
   const {
     handleSubmit,
     register,
-    formState: { isSubmitting },
+    formState: { isSubmitting, isSubmitSuccessful },
     reset,
   } = createBookForm
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset()
+      reset({
+        authors: [],
+        categories: [],
+      })
+    }
+  }, [reset, isSubmitSuccessful])
 
   async function handleCreateBook(data: CreateBookFormData) {
     try {
@@ -64,10 +77,20 @@ const AddBook: NextPageWithLayout = () => {
         ...data,
       })
       alert("Livro adicionado com sucesso")
-      reset()
+
+      handleAuthorSelected("")
+      handleCategorySelected("")
     } catch (err) {
       alert("Ocorreu um erro na hora de criarmos o livro.")
     }
+  }
+
+  function handleAuthorSelected(value: string) {
+    setAuthorSelected(value)
+  }
+
+  function handleCategorySelected(value: string) {
+    setCategorySelected(value)
   }
 
   return (
@@ -115,12 +138,18 @@ const AddBook: NextPageWithLayout = () => {
             <div className="mt-5 flex w-full gap-5">
               <Text as="label" className="w-full">
                 Autores
-                <AuthorsSelect />
+                <AuthorsSelect
+                  authorSelected={authorSelected}
+                  onAuthorSelected={handleAuthorSelected}
+                />
               </Text>
 
               <Text as="label" className="w-full">
                 Categorias
-                <CategoriesSelect />
+                <CategoriesSelect
+                  categorySelected={categorySelected}
+                  onCategorySelected={handleCategorySelected}
+                />
               </Text>
             </div>
 

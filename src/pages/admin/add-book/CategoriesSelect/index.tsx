@@ -9,7 +9,15 @@ import * as ScrollArea from "@radix-ui/react-scroll-area"
 import { useFieldArray } from "react-hook-form"
 import { CreateBookFormData } from "../index.page"
 
-export function CategoriesSelect() {
+interface CategoriesSelectProps {
+  categorySelected: string
+  onCategorySelected: (value: string) => void
+}
+
+export function CategoriesSelect({
+  categorySelected,
+  onCategorySelected,
+}: CategoriesSelectProps) {
   const { append, fields, remove } = useFieldArray<CreateBookFormData>({
     name: "categories",
   })
@@ -33,7 +41,13 @@ export function CategoriesSelect() {
 
   return (
     <div className="space-y-5">
-      <Select.Root onValueChange={handleSelectValue}>
+      <Select.Root
+        value={categorySelected}
+        onValueChange={(value) => {
+          handleSelectValue(value)
+          onCategorySelected(value)
+        }}
+      >
         <Select.Trigger className="flex w-full items-center gap-3 rounded border border-gray-500 bg-gray-800 px-5 py-3.5 text-left text-gray-100 data-[placeholder]:text-gray-400 [&_span]:flex-1">
           <Select.Value placeholder="Selecione a categoria" />
           <Select.Icon asChild>

@@ -9,7 +9,15 @@ import * as ScrollArea from "@radix-ui/react-scroll-area"
 import { useFieldArray } from "react-hook-form"
 import { CreateBookFormData } from "../index.page"
 
-export function AuthorsSelect() {
+interface AuthorSelectProps {
+  authorSelected: string
+  onAuthorSelected: (value: string) => void
+}
+
+export function AuthorsSelect({
+  authorSelected,
+  onAuthorSelected,
+}: AuthorSelectProps) {
   const { append, fields, remove } = useFieldArray<CreateBookFormData>({
     name: "authors",
   })
@@ -33,7 +41,13 @@ export function AuthorsSelect() {
 
   return (
     <div className="space-y-5">
-      <Select.Root onValueChange={handleSelectValue}>
+      <Select.Root
+        value={authorSelected}
+        onValueChange={(value) => {
+          handleSelectValue(value)
+          onAuthorSelected(value)
+        }}
+      >
         <Select.Trigger className="flex w-full items-center gap-3 rounded border border-gray-500 bg-gray-800 px-5 py-3.5 text-left text-gray-100 data-[placeholder]:text-gray-400 [&_span]:flex-1">
           <Select.Value placeholder="Selecione o autor" />
           <Select.Icon asChild>
