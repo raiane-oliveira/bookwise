@@ -34,9 +34,9 @@ export default function Login() {
       />
       <div className="bg-gray-800">
         <main
-          className={`mx-auto flex min-h-screen max-w-app justify-center p-5 font-sans md:justify-between md:gap-4`}
+          className={`mx-auto flex min-h-screen max-w-app justify-center gap-8 p-8 font-sans sm:p-5 md:justify-between`}
         >
-          <div className="relative grid w-full max-w-xl place-content-center overflow-hidden rounded-lg">
+          <div className="relative grid w-full max-w-xl place-content-center overflow-hidden rounded-lg max-sm:hidden">
             <Image
               src={BackgroundLogin}
               alt="Menina lendo um livro deitada em um sofá."

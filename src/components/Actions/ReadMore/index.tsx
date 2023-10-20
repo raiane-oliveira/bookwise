@@ -1,13 +1,13 @@
 import { Link } from "@/components/Navigation/Link"
 import { Text, TextProps } from "@/components/Typography/Text"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { twMerge } from "tailwind-merge"
 
 interface ReadMoreProps extends Omit<TextProps, "children"> {
   text: string
 }
 
-const MAX_LENGTH_CHARACTERS = 256
+let MAX_LENGTH_CHARACTERS = 256
 
 export function ReadMore({ text, ...props }: ReadMoreProps) {
   const [isReadMore, setIsReadMore] = useState(true)

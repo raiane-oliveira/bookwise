@@ -72,12 +72,12 @@ const Home: NextPageWithLayout = () => {
           Início
         </Heading>
 
-        <div className="grid w-full gap-16 pr-24 xl:grid-cols-home">
+        <div className="grid w-full gap-16 pr-4 md:pr-24 2xl:grid-cols-home">
           <div className="flex flex-col gap-3">
             {session.status === "authenticated" && lastReviewedUserBook && (
               <>
-                <div className="mb-1 flex items-center justify-between">
-                  <Text className=" text-gray-100">
+                <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+                  <Text className="text-gray-100">
                     Sua última leitura avaliada
                   </Text>
                   <Link
@@ -143,7 +143,7 @@ const Home: NextPageWithLayout = () => {
 
           {books?.length && (
             <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-1">
                 <Text className="mb-1 text-gray-100">Livros populares</Text>
                 <Link href="/explore" size="sm" variant="secondary">
                   Ver todos <CaretRight />

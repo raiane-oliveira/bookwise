@@ -91,7 +91,7 @@ const Profile: NextPageWithLayout = () => {
           </Link>
         )}
 
-        <div className="grid grid-cols-profile gap-16">
+        <div className="flex flex-col-reverse gap-10 lg:grid lg:grid-cols-profile lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Input
               placeholder="Buscar livro avaliado"
@@ -135,7 +135,7 @@ const Profile: NextPageWithLayout = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-8 border-l border-l-gray-700">
+          <div className="flex flex-col gap-4 border-y border-gray-700 py-6 sm:gap-8 lg:border-y-0 lg:border-l lg:p-0">
             <div className="flex flex-col items-center gap-5 pb-2 text-center">
               <Avatar size="lg" src={user?.profile.avatar_url} alt="" />
               <div>
@@ -151,7 +151,7 @@ const Profile: NextPageWithLayout = () => {
               aria-hidden
             />
 
-            <div className="space-y-10 px-14 py-5">
+            <div className="space-y-8 px-6 py-5 max-lg:mx-auto sm:space-y-10 sm:px-14">
               <div className="flex items-center gap-5 [&_svg]:h-8 [&_svg]:w-8 [&_svg]:text-green-100">
                 <BookOpen />
                 <Text>

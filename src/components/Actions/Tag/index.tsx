@@ -12,7 +12,7 @@ export function Tag({ children, ...props }: TagProps) {
     <Toggle.Root
       {...props}
       className={twMerge(
-        `rounded-full border border-purple-100 px-4 py-1 text-center font-sans leading-relaxed text-purple-100 transition-colors duration-300 hover:bg-purple-200 hover:text-gray-100 data-[state=on]:border-purple-200 data-[state=on]:bg-purple-200 data-[state=on]:text-gray-100`,
+        `whitespace-nowrap rounded-full border border-purple-100 px-4 py-1 text-center font-sans text-sm leading-relaxed text-purple-100 transition-colors duration-300 hover:bg-purple-200 hover:text-gray-100 data-[state=on]:border-purple-200 data-[state=on]:bg-purple-200 data-[state=on]:text-gray-100 sm:text-base md:whitespace-normal`,
         props.className,
       )}
     >

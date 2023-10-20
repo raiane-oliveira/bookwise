@@ -57,7 +57,7 @@ const Explore: NextPageWithLayout = () => {
   return (
     <>
       <NextSeo title="Explore nossos livros | BookWise" />
-      <main className="mt-12 w-full max-w-app pr-16">
+      <main className="mt-12 w-full max-w-app pr-4 lg:pr-16">
         <div className="flex flex-wrap justify-between gap-6">
           <Heading>
             <Binoculars />
@@ -73,7 +73,7 @@ const Explore: NextPageWithLayout = () => {
           </div>
         </div>
 
-        <div className="mb-12 mt-10 flex flex-wrap gap-3">
+        <div className="categories-sidebar mb-8 mt-6 flex items-center gap-3 overflow-x-auto sm:mb-12 sm:mt-10 md:flex-wrap">
           {isLoadingCategories &&
             Array.from(Array(8).keys()).map((n) => (
               <div
@@ -112,7 +112,7 @@ const Explore: NextPageWithLayout = () => {
           </Text>
         )}
 
-        <div className="grid grid-cols-explore gap-5">
+        <div className="grid gap-5 sm:grid-cols-explore">
           {isLoadingBooks &&
             Array.from(Array(15).keys()).map((n) => (
               <div

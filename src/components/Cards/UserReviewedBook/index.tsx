@@ -57,7 +57,11 @@ export function UserReviewedBook({
   }
 
   return (
-    <Box hasHover {...props}>
+    <Box
+      hasHover
+      {...props}
+      className={twMerge("max-md:flex-col", props.className)}
+    >
       <Image
         width={108}
         height={152}
@@ -67,7 +71,7 @@ export function UserReviewedBook({
         alt={imgProps.alt}
       />
       <div className="flex flex-1 flex-col gap-3">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-1">
           <Text>{createdAt}</Text>
           <Stars stars={book.stars} className="mt-auto" />
         </div>
@@ -83,7 +87,7 @@ export function UserReviewedBook({
           <Text className="text-gray-400">{book.authors.join(", ")}</Text>
         </div>
 
-        <Text className="mt-auto line-clamp-2">{book.opinion}</Text>
+        <ReadMore text={book.opinion} />
       </div>
     </Box>
   )

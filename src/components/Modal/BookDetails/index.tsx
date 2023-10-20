@@ -55,13 +55,13 @@ export function BookDetails({ book }: BookDetailsProps) {
       <Dialog.Overlay
         className={`fixed inset-0 z-50 grid overflow-y-auto bg-black/60`}
       >
-        <Dialog.Content className="ml-auto h-full w-full max-w-[41.25rem] bg-gray-800 px-12 py-16 shadow-[-4px_0px_30px_0px_rgba(0,0,0,0.50)]">
-          <Dialog.Close className="absolute right-8 top-6">
+        <Dialog.Content className="ml-auto h-full w-full max-w-[41.25rem] bg-gray-800 px-8 py-12 shadow-[-4px_0px_30px_0px_rgba(0,0,0,0.50)] sm:px-12 sm:py-16">
+          <Dialog.Close className="absolute right-4 top-4 sm:right-8 sm:top-6">
             <X className="h-6 w-6 text-gray-400" />
           </Dialog.Close>
 
           <Box variant="secondary" className="flex-col gap-10 px-8 pb-4 pt-6">
-            <div className="flex gap-8">
+            <div className="flex flex-wrap gap-8">
               <Image
                 src={book.image_url || ""}
                 alt=""
@@ -70,7 +70,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                 height={242}
               />
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-1 flex-col gap-2">
                 <Text
                   as="strong"
                   className="text-lg/base font-bold text-gray-100"
@@ -89,7 +89,7 @@ export function BookDetails({ book }: BookDetailsProps) {
               </div>
             </div>
 
-            <div className="flex gap-14 border-t border-gray-600 py-6">
+            <div className="flex flex-wrap gap-6 border-t border-gray-600 py-6 sm:gap-14">
               <div className="flex items-center gap-4">
                 <BookmarkSimple className="h-6 w-6 text-green-100" />
                 <div>
@@ -156,21 +156,27 @@ export function BookDetails({ book }: BookDetailsProps) {
               <Box size="sm" className="flex-col p-6">
                 <LinkNext
                   href={`/profile/${currentUserReview.user_id}`}
-                  className="flex items-start gap-4"
+                  className="flex flex-wrap items-start gap-4"
                 >
-                  <Avatar src={currentUserReview.user.avatar_url} alt="" />
-                  <div>
-                    <Text
-                      size="md"
-                      className="font-bold leading-base text-gray-100"
-                    >
-                      {currentUserReview.user.name}
-                    </Text>
-                    <Text className="text-gray-400">
-                      {formatToRelativeDate(currentUserReview.created_at)}
-                    </Text>
+                  <div className="flex items-start gap-4">
+                    <Avatar src={currentUserReview.user.avatar_url} alt="" />
+                    <div>
+                      <Text
+                        size="md"
+                        className="font-bold leading-base text-gray-100"
+                      >
+                        {currentUserReview.user.name}
+                      </Text>
+                      <Text className="text-gray-400">
+                        {formatToRelativeDate(currentUserReview.created_at)}
+                      </Text>
+                    </div>
                   </div>
-                  <Stars stars={currentUserReview.stars} className="ml-auto" />
+
+                  <Stars
+                    stars={currentUserReview.stars}
+                    className="sm:ml-auto"
+                  />
                 </LinkNext>
                 <ReadMore text={currentUserReview.review} />
               </Box>
@@ -190,7 +196,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                 >
                   <LinkNext
                     href={`/profile/${book.user_id}`}
-                    className="flex items-start gap-4"
+                    className="flex flex-wrap items-start gap-4"
                   >
                     <Avatar src={book.user.avatar_url} alt="" />
                     <div>
@@ -204,7 +210,7 @@ export function BookDetails({ book }: BookDetailsProps) {
                         {formatToRelativeDate(book.created_at)}
                       </Text>
                     </div>
-                    <Stars stars={book.stars} className="ml-auto" />
+                    <Stars stars={book.stars} className="sm:ml-auto" />
                   </LinkNext>
                   <ReadMore text={book.review} />
                 </Box>

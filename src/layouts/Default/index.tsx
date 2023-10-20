@@ -13,7 +13,7 @@ export function Default({ children }: DefaultProps) {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <div
-          className={` flex min-h-screen items-start gap-24 bg-gray-800 p-5 pl-[20.5rem]`}
+          className={`min-h-screen items-start gap-24 bg-gray-800 p-5 pl-12 md:flex md:pl-20 xl:pl-[20.5rem]`}
         >
           <Sidebar />
           {children}

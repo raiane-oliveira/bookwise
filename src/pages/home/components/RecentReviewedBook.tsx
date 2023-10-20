@@ -24,7 +24,7 @@ export function RecentReviewedBook({ book }: RecentReviewedBookProps) {
     <Box className="flex-col gap-8 py-6" variant="secondary">
       <NextLink
         href={`/profile/${book.user_id}`}
-        className="flex w-full items-start gap-4"
+        className="flex w-full flex-wrap items-start gap-4"
       >
         <Avatar src={book.user.avatar_url} alt="" />
         <div>
@@ -35,10 +35,10 @@ export function RecentReviewedBook({ book }: RecentReviewedBookProps) {
             {formatToRelativeDate(book.created_at)}
           </Text>
         </div>
-        <Stars className="ml-auto" stars={book.stars} />
+        <Stars className="min-[426px]:ml-auto" stars={book.stars} />
       </NextLink>
 
-      <div className="flex gap-5">
+      <div className="flex gap-5 max-md:flex-col">
         <Image
           src={
             book.book.image_url ??

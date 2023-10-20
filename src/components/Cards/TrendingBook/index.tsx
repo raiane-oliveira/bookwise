@@ -40,7 +40,7 @@ export function TrendingBook({
             alt=""
             className={`${size === "sm" && "h-[5.875rem] w-16"} ${
               size === "md" && "h-[9.5rem] w-28"
-            } rounded object-cover`}
+            } rounded object-cover max-[330px]:h-[5.875rem] max-[330px]:w-16`}
           />
           <div
             className={`flex flex-col pt-0.5 ${

@@ -116,7 +116,7 @@ export function CreateReviewForm({
       variant="secondary"
       className="flex-col p-6"
     >
-      <div className="flex items-start gap-4">
+      <div className="flex flex-wrap items-start gap-4">
         <Avatar src={session.data?.user.avatar_url} alt="" />
         <Text
           size="md"
@@ -125,7 +125,7 @@ export function CreateReviewForm({
           {session.data?.user.name}
         </Text>
 
-        <div className="ml-auto">
+        <div className="sm:ml-auto">
           {starsArr.map((star) => (
             <Toggle.Root
               key={star}
@@ -151,14 +151,14 @@ export function CreateReviewForm({
                     ? "fill"
                     : "regular"
                 }
-                className="h-7 w-7 text-purple-100"
+                className="h-5 w-5 text-purple-100 sm:h-7 sm:w-7"
               />
             </Toggle.Root>
           ))}
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2 sm:gap-3">
         <div className="h-[10.25rem]">
           <Controller
             control={control}
