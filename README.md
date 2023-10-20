@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a  href="https://github.com/raiane-oliveira/bookWise/">
+  <a  href="https://raianebookwise.vercel.app">
    <div>
       <img src="./src/assets/logo.svg" alt="Ignite logo" width="200"  />
     </div>
