@@ -27,7 +27,7 @@ interface CreateReviewFormProps {
   ) => void
 }
 
-const MAX_LENGTH_REVIEW = 1000
+const MAX_LENGTH_REVIEW = 2500
 
 const createReviewFormSchema = z.object({
   review: z
