@@ -11,7 +11,7 @@ export default async function handler(
   }
 
   const createReviewBody = z.object({
-    review: z.string().min(1).max(1000),
+    review: z.string().min(1).max(2500),
     stars: z.number().min(1).max(5),
     userId: z.string().min(1),
     bookId: z.string().min(1),
