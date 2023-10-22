@@ -39,9 +39,11 @@ const Explore: NextPageWithLayout = () => {
   )
 
   const books = data?.filter((book) => {
-    const bookByCategory = book.categories.some((category) =>
-      category.name.toLowerCase().includes(categorySelected),
-    )
+    const bookByCategory = !categorySelected
+      ? true
+      : book.categories.some(
+          (category) => category.name.toLowerCase() === categorySelected,
+        )
 
     const bookByName = book.name
       .toLowerCase()
