@@ -16,11 +16,9 @@ export default async function handler(
 
   const session = await getServerSession(req, res, authOptions)
 
-  const prismaRecentReviewedBooks = await prisma.reviewedBook.findMany({
-    where: {
-      created_at: {
-        lte: dayjs().add(RECENT_BOOKS_LIMIT_DAYS, "day").toDate(),
-      },
+  const recentReviewedBooks = await prisma.reviewedBook.findMany({
+    orderBy: {
+      created_at: "desc",
     },
     include: {
       user: true,
@@ -31,10 +29,6 @@ export default async function handler(
         },
       },
     },
-  })
-
-  const recentReviewedBooks = prismaRecentReviewedBooks.sort(() => {
-    return -1
   })
 
   const lastReviewedUserBook = await prisma.reviewedBook.findMany({
