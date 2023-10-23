@@ -72,8 +72,7 @@ Link: https://6535b4417ed85019858166ec-eojhirwxvj.chromatic.com/?path=/docs/home
 - Connect and run MySQL docker container into Prisma ORM
 - Deploy MySQL database and manage Google Console and Github to get OAuth screen permissions.
 - Deal with multiple layouts in NextJS.
-- Document components based on the Atomic Design pattern.
-- Setup Github Actions for CI deployment.
+- Set up Github Actions for CI deployment.
 
 ## 🤝 Feedbacks
 
