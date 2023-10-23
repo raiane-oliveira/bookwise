@@ -19,13 +19,14 @@
  <a href="#-about">About</a> •
  <a href="#-features">Features</a> •
  <a href="#-tech-stack">Tech Stack</a> • 
+ <a href="#-documentation">Documentation</a> • 
  <a href="#-learnings">Learnings</a> •
  <a href="#-feedbacks">Feedbacks</a>
 </p>
 
 ## 💻 About
 
-A full-stack application that manages a virtual library, with the possibility to create an account, review, explore and search books, as well as visit other users profiles.
+A full-stack application that manages a virtual library, with the possibility to create an account, review, explore, search books, and visit other user's profiles.
 
 <img src="https://github.com/raiane-oliveira/bookwise/assets/100815627/6046d25a-3507-45bf-8762-cd0dbaee88d7" />
 
@@ -42,15 +43,6 @@ This challenge was offered in Rocketseat's Ignite course.
 - [x] Shows recent user reviews and the last review of your account.
 - [x] Responsive design
 
-## 📒 Learnings
-
-- Change the layout if the user is authenticated or not.
-- Document components and pages using Storybook, based on the Atomic Design pattern.
-- Database modulation with Prisma, defining many-to-many or one-to-many relationships
-- Connect and run MySQL docker container into Prisma ORM
-- Deploy MySQL database and manage Google Console and Github to get OAuth screen permissions.
-- Deal with multiple layouts in NextJS.
-
 ## 🛠 Tech Stack
 
 - NextJS
@@ -63,6 +55,25 @@ This challenge was offered in Rocketseat's Ignite course.
 - Docker
 - TypeScript
 - TailwindCSS
+
+## 📃 Documentation
+
+All the components were documented using the Atomic Design pattern and the Storybook tool. The storybook's deployment was published on the Chromatic platform and it was set CI deployment using Github Actions.
+
+![image](https://github.com/raiane-oliveira/bookwise/assets/100815627/5a4d9434-c1a3-4f59-b434-0c0d5a200ecb)
+
+Link: https://6535b4417ed85019858166ec-eojhirwxvj.chromatic.com/?path=/docs/home--docs
+
+## 📒 Learnings
+
+- Change the layout if the user is authenticated or not.
+- Document components and pages using Storybook, based on the Atomic Design pattern.
+- Database modulation with Prisma, defining many-to-many or one-to-many relationships
+- Connect and run MySQL docker container into Prisma ORM
+- Deploy MySQL database and manage Google Console and Github to get OAuth screen permissions.
+- Deal with multiple layouts in NextJS.
+- Document components based on the Atomic Design pattern.
+- Setup Github Actions for CI deployment.
 
 ## 🤝 Feedbacks
 
