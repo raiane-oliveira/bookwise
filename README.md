@@ -33,6 +33,8 @@ A full-stack application that manages a virtual library, with the possibility to
 The database was deployed in <a href="https://planetscale.com">Planetscale</a> and the application on <a href="https://vercel.com">Vercel</a>.
 This challenge was offered in Rocketseat's Ignite course.
 
+**OBS:** As it's deployed on a free host server, the database may not be available at all times or could be taken down.
+
 ## 🪸 Features
 
 - [x] Create a user account with Google or GitHub providers, or access the application as a visitor.
